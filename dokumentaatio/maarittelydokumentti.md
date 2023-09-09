@@ -18,8 +18,8 @@ Sovellus pakkaa tekstitiedostoja kahdella vaihtoehtoisella häviöttömällä al
 Sovelluksen avulla voidaan pakata tekstitiedostoja ja purkaa pakattuja tiedostoja takaisin tekstitiedostoiksi. Ensimmäisessä tapauksessa se saa syötteenä tekstitiedoston, jonka se pakkaa käyttäjän valitsemalla algoritmilla ja tallentaa uudeksi tiedostoksi. Jälkimmäisessä se ottaa syötteenä aiemmin pakkaamansa tiedoston, jonka se pakkaa ja tallentaa ihmisen luettavaksi tekstitiedostoksi.
 
 ## Aika- ja tilavaativuudet
-    - Huffmanin koodauksen tuottama pakattu tekstitiedosto on lyhyempi tai korkeintaan yhtä pitkä kuin alkuperäinen koodattava tekstitiedosto. Huffman-puun luominen on aikavaativuudeltaan O(nlogn). BPC (bits per character) -arvo on keskimäärin 5,27.
-    - LZ78-algoritmin aikavaativuus on O(n), koska jokainen koodattavan tiedoston merkki n luetaan koodauksen aikana kerran. BPC-arvo on keskimäärin 4,26.
+- Huffmanin koodauksen tuottama pakattu tekstitiedosto on lyhyempi tai korkeintaan yhtä pitkä kuin alkuperäinen koodattava tekstitiedosto. Huffman-puun luominen on aikavaativuudeltaan O(nlogn). BPC (bits per character) -arvo on keskimäärin 5,27.
+- LZ78-algoritmin aikavaativuus on O(n), koska jokainen koodattavan tiedoston merkki n luetaan koodauksen aikana kerran. BPC-arvo on keskimäärin 4,26.
 
 ## Lähteet
 - Huffman D. 1952. A Method for the Construction of Minimum-Redundancy Codes. Proceedings of the IRE. 40 (9): 1098–1101.
