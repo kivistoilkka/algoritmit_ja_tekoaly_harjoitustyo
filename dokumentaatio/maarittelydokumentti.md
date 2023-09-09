@@ -4,7 +4,7 @@
 - Ohjelmointikieli: Python
     - Pystyn tarvittaessa lukemaan Javaa, mutta edellisestä kerrasta on muutama vuosi
 - Toteutettavat algoritmit:
-    - [Huffmanin koodaus](https://fi.wikipedia.org/wiki/Huffmanin_koodaus) [englanniksi](https://en.wikipedia.org/wiki/Huffman_coding)
+    - [Huffmanin koodaus](https://fi.wikipedia.org/wiki/Huffmanin_koodaus) [(englanniksi)](https://en.wikipedia.org/wiki/Huffman_coding)
         - Tietorakenteina binääripuu Huffman-puuta varten ja prioriteettijono puun rakentamista varten
     - [Lempel-Ziv 78 (LZ78)](https://en.wikipedia.org/wiki/LZ77_and_LZ78)
         - Tietorakenteina n-ary-puu algoritmin tarvitsemaa sanakirjaa varten
@@ -14,10 +14,10 @@
 ## Valittu ongelma ja perustelut valituille algoritmeille ja tietorakenteille?
 Sovellus pakkaa tekstitiedostoja kahdella vaihtoehtoisella häviöttömällä algoritmilla. Huffmanin koodaus vaikuttaa melko yksinkertaiselta, mutta sitä käytetään osana monien nykyäänkin käytettyjä pakkausmenetelmiä. Lempel-Ziv 78 on hieman monimutkaisempi, mutta manuaalisesti testattaessa hyvin mielenkiintoinen ja se pystyy ilmeisesti hieman parempaan pakkaukseen. Se kuuluu LZ-algoritmien perheeseen, jossa on myös muita mielenkiintoisia vaihtoehtoja. LZ78 saattaa vaihtua kun ehdin tutustua hieman enemmän vaihtoehtoihin (esim. LZW-algoritmi vaikuttaa hieman monimutkaisemmalta, mutta ei mahdottomalta). Toisaalta jos Huffmanin koodaus ja Pythonin käyttö tiedostojen pakkaamiseen tuottaa liikaa ongelmia, niin sitten keskityn vain yhteen algoritmiin.
 
-# Syötteet
+## Syötteet
 Sovelluksen avulla voidaan pakata tekstitiedostoja ja purkaa pakattuja tiedostoja takaisin tekstitiedostoiksi. Ensimmäisessä tapauksessa se saa syötteenä tekstitiedoston, jonka se pakkaa käyttäjän valitsemalla algoritmilla ja tallentaa uudeksi tiedostoksi. Jälkimmäisessä se ottaa syötteenä aiemmin pakkaamansa tiedoston, jonka se pakkaa ja tallentaa ihmisen luettavaksi tekstitiedostoksi.
 
-# Aika- ja tilavaativuudet
+## Aika- ja tilavaativuudet
     - Huffmanin koodauksen tuottama pakattu tekstitiedosto on lyhyempi tai korkeintaan yhtä pitkä kuin alkuperäinen koodattava tekstitiedosto. Huffman-puun luominen on aikavaativuudeltaan O(nlogn). BPC (bits per character) -arvo on keskimäärin 5,27.
     - LZ78-algoritmin aikavaativuus on O(n), koska jokainen koodattavan tiedoston merkki n luetaan koodauksen aikana kerran. BPC-arvo on keskimäärin 4,26.
 
