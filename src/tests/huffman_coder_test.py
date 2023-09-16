@@ -1,5 +1,6 @@
 import unittest
 from huffman_coder import HuffmanCoder
+from entities.huffmantree_node import HuffmanTreeNode
 
 
 class TestHuffmanCoder(unittest.TestCase):
@@ -45,7 +46,7 @@ class TestHuffmanCoder(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_create_huffman_tree_returns_list(self):
+    def test_create_huffman_tree_returns_HuffmanTreeNode(self):
         symbols_and_weights = {
             'H': 2,
             'o': 4,
@@ -54,4 +55,38 @@ class TestHuffmanCoder(unittest.TestCase):
             't': 4
         }
         result = self.coder.create_huffman_tree(symbols_and_weights)
-        self.assertTrue(isinstance(result, list))
+        self.assertTrue(isinstance(result, HuffmanTreeNode))
+
+    def test_create_huffman_tree_returns_root_node(self):
+        symbols_and_weights = {
+            'H': 2,
+            'o': 4,
+            'w': 2,
+            ' ': 7,
+            't': 4
+        }
+
+        result = self.coder.create_huffman_tree(symbols_and_weights)
+        self.assertEqual(len(result.symbol), 5)
+
+    def test_create_huffman_dictionary_returns_correct_dictionary_1(self):
+        symbols_and_weights = {
+            'a': 5,
+            'b': 9,
+            'c': 12,
+            'd': 13,
+            'e': 16,
+            'f': 45
+        }
+        expected = {
+            'f': '0',
+            'c': '100',
+            'd': '101',
+            'a': '1100',
+            'b': '1101',
+            'e': '111'
+        }
+
+        tree = self.coder.create_huffman_tree(symbols_and_weights)
+        result = self.coder.create_huffman_code_dictionary(tree)
+        self.assertDictEqual(result, expected)
