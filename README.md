@@ -7,3 +7,4 @@ Sovellus tekstitiedostojen pakkaamiseen käyttäen Huffman- ja LZ78-pakkausalgor
 ## Viikkoraportit
 - [Viikko 1](dokumentaatio/viikkoraportti1.md)
 - [Viikko 2](dokumentaatio/viikkoraportti2.md)
+- [Viikko 3](dokumentaatio/viikkoraportti3.md)
