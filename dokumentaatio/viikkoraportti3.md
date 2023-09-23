@@ -8,6 +8,9 @@ Tiistai 19.9. *2h*
 Keskiviikko 20.9. *2h*
 - Huffmanin koodaus: enkoodaus ja dekoodaus toimiviksi
 
+Lauantai 23.9. *h*
+- GitHub Actions ja Codecov käyttöön
+
 ## Mitä opin?
 
 
