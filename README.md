@@ -6,7 +6,7 @@ Sovellus tekstitiedostojen pakkaamiseen käyttäen Huffman- ja LZ78-pakkausalgor
 
 ## Dokumentaatio
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
-- [Testausdokumentti][dokumentaatio/testausdokumentti.md]
+- [Testausdokumentti](dokumentaatio/testausdokumentti.md)
 
 ## Viikkoraportit
 - [Viikko 1](dokumentaatio/viikkoraportti1.md)
