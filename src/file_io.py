@@ -9,3 +9,11 @@ class FileIO:
                 return data
         except OSError:
             return None
+
+    def write_file(self, data, filename):
+        try:
+            with open(filename, "w", encoding="ISO8859-1") as file:
+                file.write(data)
+            return True
+        except OSError:
+            return False
