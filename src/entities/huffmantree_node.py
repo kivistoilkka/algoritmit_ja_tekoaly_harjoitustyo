@@ -1,6 +1,6 @@
 class HuffmanTreeNode:
 
-    def __init__(self, frequency: int, symbol: str, left_child=None, right_child=None):
+    def __init__(self, frequency: int, symbol: bytes, left_child=None, right_child=None):
         self.frequency = frequency
         self.symbol = symbol
         self.left_child = left_child
