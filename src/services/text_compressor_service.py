@@ -23,9 +23,11 @@ class TextCompressorService:
         match encoding_type:
             case 'huffman coding':
                 split_data = data.split('\n')
-                encoded_tree = '\n'.join(split_data[0:-1]) # TODO: Better way to handle line break characters, probably easier when working with bytes
+                # TODO: Better way to handle line break characters, easier when working with bytes
+                encoded_tree = '\n'.join(split_data[0:-1])
                 encoded_data = split_data[-1]
-                decoded_data = self.huffman_coder.decode(encoded_data, encoded_tree)
+                decoded_data = self.huffman_coder.decode(
+                    encoded_data, encoded_tree)
                 return self.file_io.write_file(decoded_data, decoded_file_name)
             case _default:
                 raise ValueError('Encoding type "' +
