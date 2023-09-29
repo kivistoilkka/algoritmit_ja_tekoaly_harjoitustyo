@@ -49,3 +49,22 @@ class TestTextCompressorService(unittest.TestCase):
         for file in test_text_files:
             if Path(file).exists():
                 Path(file).unlink()
+
+    def test_read_text_file_is_encoded_and_decoded_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/loremipsum446_ISO8859-1.txt',
+            './src/tests/write_test_integration2_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration2_encoded.txt',
+            './src/tests/write_test_integration2_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/loremipsum446_ISO8859-1.txt', encoding="ISO8859-1") as original_file:
+            with open('./src/tests/write_test_integration2_decoded.txt', encoding="ISO8859-1") as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
