@@ -8,6 +8,8 @@ class TestFileIO(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.io = FileIO()
+
+    def tearDown(self):
         test_text_files = [
             './src/tests/write_test1.txt',
             './src/tests/write_test2.txt'

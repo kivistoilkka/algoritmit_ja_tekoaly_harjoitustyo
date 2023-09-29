@@ -19,7 +19,9 @@ class TestTextCompressorService(unittest.TestCase):
         test_text_files = [
             './src/tests/write_test_integration1.txt',
             './src/tests/write_test_integration2_encoded.txt',
-            './src/tests/write_test_integration2_decoded.txt'
+            './src/tests/write_test_integration2_decoded.txt',
+            # './src/tests/write_test_integration3_encoded.txt',
+            # './src/tests/write_test_integration3_decoded.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():
@@ -42,14 +44,6 @@ class TestTextCompressorService(unittest.TestCase):
             written_data = written_file.read()
             self.assertEqual(written_data, expected)
 
-        test_text_files = [
-            './src/tests/write_test_integration1.txt',
-            './src/tests/write_test_integration2.txt'
-        ]
-        for file in test_text_files:
-            if Path(file).exists():
-                Path(file).unlink()
-
     def test_read_text_file_is_encoded_and_decoded_and_then_saved_to_new_file(self):
         result_encode = self.service.encode_file(
             './src/tests/text_files/loremipsum446_ISO8859-1.txt',
@@ -65,6 +59,25 @@ class TestTextCompressorService(unittest.TestCase):
         self.assertTrue(result_decode)
         with open('./src/tests/text_files/loremipsum446_ISO8859-1.txt', encoding="ISO8859-1") as original_file:
             with open('./src/tests/write_test_integration2_decoded.txt', encoding="ISO8859-1") as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_read_multiple_row_text_file_is_encoded_and_decoded_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/loremipsum446_3rows_ISO8859-1.txt',
+            './src/tests/write_test_integration3_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration3_encoded.txt',
+            './src/tests/write_test_integration3_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/loremipsum446_3rows_ISO8859-1.txt', encoding="ISO8859-1") as original_file:
+            with open('./src/tests/write_test_integration3_decoded.txt', encoding="ISO8859-1") as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)

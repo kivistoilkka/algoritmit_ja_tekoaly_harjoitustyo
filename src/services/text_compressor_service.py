@@ -22,9 +22,9 @@ class TextCompressorService:
         data = self.file_io.read_file(encoded_file_name)
         match encoding_type:
             case 'huffman coding':
-                split_data = data.split('\n', maxsplit=1)
-                encoded_tree = split_data[0]
-                encoded_data = split_data[1]
+                split_data = data.split('\n')
+                encoded_tree = '\n'.join(split_data[0:-1]) # TODO: Better way to handle line break characters, probably easier when working with bytes
+                encoded_data = split_data[-1]
                 decoded_data = self.huffman_coder.decode(encoded_data, encoded_tree)
                 return self.file_io.write_file(decoded_data, decoded_file_name)
             case _default:
