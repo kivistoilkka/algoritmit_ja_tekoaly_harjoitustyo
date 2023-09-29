@@ -1,5 +1,6 @@
 import unittest
-from huffman_coder import HuffmanCoder
+
+from utils.huffman_coder import HuffmanCoder
 from entities.huffmantree_node import HuffmanTreeNode
 
 

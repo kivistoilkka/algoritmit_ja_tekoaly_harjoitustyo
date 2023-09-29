@@ -1,6 +1,7 @@
 import unittest
-from file_io import FileIO
 from pathlib import Path
+
+from utils.file_io import FileIO
 
 
 class TestFileIO(unittest.TestCase):
@@ -26,7 +27,8 @@ esse cillum dolore eu fugiat nulla pariatur. Excepteur \
 sint occaecat cupidatat non proident, sunt in culpa \
 qui officia deserunt mollit anim id est laborum.'''
 
-        text = self.io.read_file('./src/tests/text_files/loremipsum446_ISO8859-1.txt')
+        text = self.io.read_file(
+            './src/tests/text_files/loremipsum446_ISO8859-1.txt')
         self.assertEqual(text, expected)
 
     def test_string_data_can_be_saved_to_file(self):
