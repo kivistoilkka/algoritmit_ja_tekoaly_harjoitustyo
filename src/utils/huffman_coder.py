@@ -5,10 +5,22 @@ from entities.huffmantree_node import HuffmanTreeNode
 
 
 class HuffmanCoder:
+    """Class handling Huffman coding
+    """
+
     def __init__(self) -> None:
         pass
 
     def encode(self, input_string: str) -> tuple[str, str]:
+        """Method for encoding input string with Huffman coding
+
+        Args:
+            input_string (str): Text to be encoded
+
+        Returns:
+            tuple[str, str]: Tuple where first value is encoded data and second is encoded Huffman tree
+        """
+
         symbols_and_frequencies = self.calculate_frequencies(input_string)
         tree = self.create_huffman_tree(symbols_and_frequencies)
         table = self.create_huffman_table(tree)
@@ -17,6 +29,16 @@ class HuffmanCoder:
         return (encoded_data, encoded_tree)
 
     def decode(self, encoded_data: str, encoded_tree: str) -> str:
+        """Method for decoding Huffman coded data using given encoded Huffman tree
+
+        Args:
+            encoded_data (str): Data to be encoded
+            encoded_tree (str): Encoded Huffman tree that was used for encoding of data
+
+        Returns:
+            str: Decoded text
+        """
+
         tree = self.decode_huffman_tree(encoded_tree)
         return self.huffman_decode_data(encoded_data, tree)
 
