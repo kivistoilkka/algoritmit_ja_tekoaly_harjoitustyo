@@ -20,6 +20,7 @@ Perjantai 29.9. *3h*
 Lauantai 30.9. *3h*
 - Lisää bittikäsittelyn opiskelua
 - LZW-pakkauksen toteuttavan LZWCoder-luokan luominen, ensimmäinen iteraatio enkoodauksesta ja dekoodauksesta
+- Ensimmäiset Docstring-dokumentaatiot
 
 ## Mitä opin?
 Opin hieman lisää Pythonin sisäisestä maailmasta Real Pythonin tutoriaalista. Päädyin valitsemaan Lempel-Ziv algoritmiksi Lempel-Ziv-Welchin, koska sen nimi on tullut vastaan GeoTIFF-kuvien kanssa työskennellessä. Tuo LZW oli myös yllättävän helppo toteuttaa.
