@@ -9,3 +9,7 @@ Ohjelman yksikkötestien kattavuusraportin saa luotua komennolla `poetry run inv
 Ohjelman toimintaa on testattu Pythonin unittest-sovelluskehyksen avulla. Testit voi ajaa komennolla `poetry run invoke test`.
 
 HuffmanCoder-luokkaa on kehitetty testivetoisesti ja sille on kirjoitettu yksikkötestejä. Osa yksikkötesteistä testaa useamman metodin yhteistoimintaa ja sitä, miten luokka suoriutuu tekstipätkän pakkaamisesta ja pakkaamisen purkamisesta.
+
+TextCompressorService-luokkaa on myös kehitetty testivetoisesti ja sitä on testattu Mock-luokkia hyödyntämällä. Lisäksi sille on kirjoitettu integraatiotestejä, jotka hyödyntävät oikeita tiedostokäsittelyyn ja tekstidatan koodaukseen käytettäviä luokkia.
+
+LZWCoder-luokan testausta ei ole vielä varsinaisesti aloitettu.
