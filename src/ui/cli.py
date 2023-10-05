@@ -8,11 +8,20 @@ class CLI:
     def handle_encoding(self):
         file_path = input('Enter path to the file: ')
         name_for_file = input('Enter path and name for the encoded file: ')
-        encoding_option = input('Select encoding option (1 Huffman coding): ')
+        encoding_option = input('Select encoding option (1 Huffman coding, 2 LZW): ')
         match encoding_option:
             case '1':
                 encoding_successful = self.service.encode_file(
                     file_path, name_for_file, 'huffman coding'
+                )
+                if encoding_successful:
+                    print(
+                        f"\nFile {file_path} encoded to file {name_for_file}")
+                else:
+                    print(f"\nFile {file_path} couldn't be encoded")
+            case '2':
+                encoding_successful = self.service.encode_file(
+                    file_path, name_for_file, 'lzw'
                 )
                 if encoding_successful:
                     print(
@@ -25,11 +34,20 @@ class CLI:
     def handle_decoding(self):
         encoded_file = input('Enter path to encoded file: ')
         name_for_file = input('Enter path and name for the decoded file: ')
-        decoding_option = input('Select decoding option (1 Huffman coding): ')
+        decoding_option = input('Select decoding option (1 Huffman coding, 2 LZW): ')
         match decoding_option:
             case '1':
                 decoding_successful = self.service.decode_file(
                     encoded_file, name_for_file, 'huffman coding'
+                )
+                if decoding_successful:
+                    print(
+                        f"\nFile {encoded_file} decoded to file {name_for_file}")
+                else:
+                    print(f"\nFile {encoded_file} couldn't be decoded")
+            case '2':
+                decoding_successful = self.service.decode_file(
+                    encoded_file, name_for_file, 'lzw'
                 )
                 if decoding_successful:
                     print(
