@@ -2,18 +2,19 @@ import unittest
 from pathlib import Path
 
 import unittest
-from unittest.mock import Mock
 
 from services.text_compressor_service import TextCompressorService
 from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
+from utils.lzw_coder import LZWCoder
 
 
 class TestTextCompressorService(unittest.TestCase):
     def setUp(self):
         self.io = FileIO()
         self.huffman_coder = HuffmanCoder()
-        self.service = TextCompressorService(self.io, self.huffman_coder)
+        self.lzw_coder = LZWCoder()
+        self.service = TextCompressorService(self.io, self.huffman_coder, self.lzw_coder)
 
     def tearDown(self):
         test_text_files = [

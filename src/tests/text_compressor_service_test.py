@@ -4,14 +4,16 @@ from unittest.mock import Mock
 from services.text_compressor_service import TextCompressorService
 from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
+from utils.lzw_coder import LZWCoder
 
 
 class TestTextCompressorService(unittest.TestCase):
     def setUp(self):
         self.io_mock = Mock(wraps=FileIO)
         self.huffman_coder_mock = Mock(wraps=HuffmanCoder)
+        self.lzw_coder_mock = Mock(wraps=LZWCoder)
         self.service = TextCompressorService(
-            self.io_mock, self.huffman_coder_mock)
+            self.io_mock, self.huffman_coder_mock, self.lzw_coder_mock)
 
     def test_encode_file_with_huffman_reads_file_and_encodes_data_and_saves_data_to_new_file(self):
         self.io_mock.read_file.return_value = '''aaaaabbbbbbbbbcccccccccccc\
