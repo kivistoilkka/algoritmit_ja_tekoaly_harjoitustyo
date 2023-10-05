@@ -1,7 +1,9 @@
 from collections import Counter
 from heapq import heappush, heappop, heapify
 
-from entities.huffmantree_node import HuffmanTreeNode
+from bitstring import BitArray, pack
+
+from ..entities.huffmantree_node import HuffmanTreeNode
 
 
 class HuffmanCoder:
@@ -11,16 +13,17 @@ class HuffmanCoder:
     def __init__(self) -> None:
         pass
 
-    def encode(self, input: bytes) -> tuple[bytes, bytes]:
+    def encode(self, input_string: str) -> tuple[bytes, bytes]:
         """Method for encoding input bytes with Huffman coding
 
         Args:
-            input_string (bytes): Text to be encoded as bytes
+            input_string (str): Text to be encoded
 
         Returns:
             tuple[bytes, bytes]: Tuple where first value is encoded data and second is encoded Huffman tree
         """
 
+        input = input_string.encode(encoding='ISO8859-1')
         symbols_and_frequencies = self.calculate_frequencies(input)
         tree = self.create_huffman_tree(symbols_and_frequencies)
         table = self.create_huffman_table(tree)
@@ -82,28 +85,28 @@ class HuffmanCoder:
         self.add_node_to_table(node.left_child, table, code + '0')
         self.add_node_to_table(node.right_child, table, code + '1')
 
-    def huffman_encode_data(self, data: bytes, table: dict) -> bytes:
-        encoded_data = b''
+    def huffman_encode_data(self, data: bytes, table: dict) -> BitArray:
+        encoded_data = BitArray()
         for symbol in data:
-            encoded_symbol = int(table[symbol], 2).to_bytes(1, byteorder='big', signed=False) #TODO: Word size is now magic number (1)
-            encoded_data = encoded_data + encoded_symbol
+            encoded_symbol = bin(int(table[symbol], 2))
+            encoded_data.append(encoded_symbol)
         return encoded_data
 
-    def encode_huffman_tree(self, root_node: HuffmanTreeNode) -> bytes:
-        encoded_tree = self.add_node_to_encoded_tree(root_node)
-        print('encoded tree: ', end='')
-        print(encoded_tree)
-        return bin(int(encoded_tree, 2))
+    def encode_huffman_tree(self, root_node: HuffmanTreeNode) -> BitArray:
+        tree = BitArray()
+        encoded_tree = self.add_node_to_encoded_tree(root_node, tree)
+        return encoded_tree
 
-    def add_node_to_encoded_tree(self, node: HuffmanTreeNode, encoded_tree: str = '') -> str:
+    def add_node_to_encoded_tree(self, node: HuffmanTreeNode, encoded_tree: BitArray) -> str:
         if node is None:
             return
         if node.is_leaf():
-            return encoded_tree + '1'
-        encoded_tree = encoded_tree + '0'
-        encoded_tree = self.add_node_to_encoded_tree(
+            encoded_tree.append(bin(1))
+            return encoded_tree.append(node.symbol.to_bytes(1))
+        encoded_tree.append(bin(0))
+        self.add_node_to_encoded_tree(
             node.left_child, encoded_tree)
-        encoded_tree = self.add_node_to_encoded_tree(
+        self.add_node_to_encoded_tree(
             node.right_child, encoded_tree)
         return encoded_tree
 
@@ -153,23 +156,23 @@ if __name__ == "__main__":
     coder = HuffmanCoder()
 
     test_string = 'How to code this string with Huffman coding?'
-    data = test_string.encode()
-    encoded = coder.encode(data)
+    print(BitArray(test_string.encode(encoding='ISO8859-1')).bin)
+    encoded = coder.encode(test_string)
+    print()
     print('Encoded data:')
-    for byte in encoded[0]:
-        print(format(byte, 'b'), end=' ')
-    print('\n')
+    print(encoded[0].bin)
 
+    print()
     print('Encoded tree:')
-    for byte in encoded[1]:
-        print(byte, end='')
-    print('\n')
+    print(encoded[1].bin)
+
+    print()
+    print('Combined:')
+    print((encoded[0] + encoded[1]).bin)
 
     decoded_data = coder.decode(encoded[0], encoded[1])
     print()
-    print(decoded_data)
-
-    int('0',2)
+    print(decoded_data)    
 
     # test_string = 'How to code this string with Huffman coding?'
 
