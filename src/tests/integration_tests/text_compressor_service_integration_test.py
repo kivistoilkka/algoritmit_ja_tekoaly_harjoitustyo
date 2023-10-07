@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-import unittest
+from bitstring import Bits, BitArray, ConstBitStream
 
 from services.text_compressor_service import TextCompressorService
 from utils.file_io import FileIO
@@ -11,6 +11,7 @@ from utils.lzw_coder import LZWCoder
 
 class TestTextCompressorService(unittest.TestCase):
     def setUp(self):
+        self.maxDiff = None
         self.io = FileIO()
         self.huffman_coder = HuffmanCoder()
         self.lzw_coder = LZWCoder()
@@ -29,10 +30,11 @@ class TestTextCompressorService(unittest.TestCase):
                 Path(file).unlink()
 
     def test_encode_file_with_huffman_reads_file_encodes_data_and_saves_to_new_file(self):
-        expected = '''01f001c1d001a1b1e
+        expected = Bits(bin='01011001100010110001110110010000101100001101100010101100101\
 110011001100110011001101110111011101110111011101110111011001001001001001001001001001001001\
 001011011011011011011011011011011011011011111111111111111111111111111111111111111111111110\
-00000000000000000000000000000000000000000000'''
+00000000000000000000000000000000000000000000').bin
+        print(len(expected))
 
         result = self.service.encode_file(
             './src/tests/text_files/aabbccddeeff101_ISO8859-1.txt',
@@ -41,9 +43,10 @@ class TestTextCompressorService(unittest.TestCase):
         )
 
         self.assertTrue(result)
-        with open('./src/tests/write_test_integration1.txt', encoding="ISO8859-1") as written_file:
+        with open('./src/tests/write_test_integration1.txt', mode='rb') as written_file:
             written_data = written_file.read()
-            self.assertEqual(written_data, expected)
+            written_bits = Bits(written_data).bin
+            self.assertEqual(written_bits, expected)
 
     def test_read_text_file_is_encoded_and_decoded_and_then_saved_to_new_file(self):
         result_encode = self.service.encode_file(

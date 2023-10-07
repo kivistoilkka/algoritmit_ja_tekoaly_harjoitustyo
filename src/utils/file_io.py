@@ -7,20 +7,20 @@ class FileIO:
     def __init__(self) -> None:
         pass
 
-    def read_text_file(self, filename: str) -> bytes:
+    def read_text_file(self, filename: str) -> str:
         """Method for reading text files, assumes that files are saved using ISO8859-1 encoding.
 
         Args:
             filename (str): Path and name of the file
 
         Returns:
-            bytes: Text data read from the file
+            str: Text data read from the file
         """
 
         try:
             with open(filename, encoding='ISO8859-1') as file:
                 data = file.read()
-                return bytes(data, encoding='ISO8859-1')
+                return data
         except OSError:
             return None
 
