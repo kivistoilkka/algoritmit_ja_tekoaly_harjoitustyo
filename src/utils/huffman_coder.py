@@ -3,7 +3,7 @@ from heapq import heappush, heappop, heapify
 
 from bitstring import Bits, BitArray, ConstBitStream
 
-from ..entities.huffmantree_node import HuffmanTreeNode
+from entities.huffmantree_node import HuffmanTreeNode
 
 
 class HuffmanCoder:
@@ -13,14 +13,14 @@ class HuffmanCoder:
     def __init__(self) -> None:
         pass
 
-    def encode(self, input_string: str) -> tuple[BitArray, BitArray]:
+    def encode(self, input_string: str) -> BitArray:
         """Method for encoding input bytes with Huffman coding
 
         Args:
             input_string (str): Text to be encoded
 
         Returns:
-            tuple[BitArray, BitArray]: Tuple where first value is encoded Huffman tree and second is encoded data
+            BitArray: BitArray of combined encoded Huffman tree and encoded data
         """
 
         input = input_string.encode(encoding='ISO8859-1')
@@ -30,23 +30,21 @@ class HuffmanCoder:
         print(table)
         encoded_data = self.huffman_encode_data(input, table)
         encoded_tree = self.encode_huffman_tree(tree)
-        return (encoded_tree, encoded_data)
+        return encoded_tree + encoded_data
 
-    def decode(self, encoded_tree: bytes, encoded_data: bytes) -> bytes:
+    def decode(self, encoded_bytes: bytes) -> bytes:
         """Method for decoding Huffman coded data using given encoded Huffman tree
 
         Args:
-            encoded_tree (bytes): Encoded Huffman tree that was used for encoding of data
-            encoded_data (bytes): Data to be encoded
+            encoded_bytes (bytes): Encoded Huffman tree that was used for encoding of data followed by encoded data
 
         Returns:
             str: Decoded text in bytes
         """
 
-        tree_bits = ConstBitStream(encoded_tree)
-        data_bits = ConstBitStream(encoded_data)
-        tree = self.decode_huffman_tree(tree_bits)
-        return self.huffman_decode_data(data_bits, tree)
+        encoded_stream = ConstBitStream(encoded_bytes)
+        tree = self.decode_huffman_tree(encoded_stream)
+        return self.huffman_decode_data(encoded_stream, tree)
 
     def calculate_frequencies(self, input: bytes) -> dict:
         output = Counter(input)
@@ -72,7 +70,7 @@ class HuffmanCoder:
 
         return heappop(nodes)
 
-    def create_huffman_table(self, root_node: HuffmanTreeNode) -> dict:
+    def create_huffman_table(self, root_node: HuffmanTreeNode) -> dict[int, Bits]:
         huffman_table = {}
         self.add_node_to_table(root_node, huffman_table)
         return huffman_table
@@ -121,32 +119,15 @@ class HuffmanCoder:
     def add_node_to_decoded_tree(self, code: ConstBitStream):
         bit = code.read(1)
         if bit == bin(1):
-            #print('adding')
             char = code.read(8)
-            #print('char:', int.from_bytes(char.tobytes()))
             return HuffmanTreeNode(1, char.bytes)
-        #print('going left')
         left_child = self.add_node_to_decoded_tree(code)
-        #print('going right')
         right_child = self.add_node_to_decoded_tree(code)
         return HuffmanTreeNode(0, '#', left_child, right_child)
 
     def huffman_decode_data(self, encoded_data: ConstBitStream, tree: HuffmanTreeNode) -> bytes:
         decoded_data = b''
-        #i = 0
         node = tree
-        # for i in range(0, len(encoded_data)):
-        #     print('next byte:', end='')
-        #     print(encoded_data.peek(1))
-        #     if encoded_data[i] == 0 and node.left_child:
-        #         node = node.left_child
-        #     elif node.right_child:
-        #         node = node.right_child
-        #     if node.is_leaf():
-        #         print('symbol:', end='')
-        #         print(node.symbol)
-        #         decoded_data = decoded_data + bytes(node.symbol)
-        #         node = tree
         while True:
             current_bit = encoded_data.read(1)
             print('current bit:', current_bit)
@@ -171,20 +152,14 @@ if __name__ == "__main__":
     encoded = coder.encode(test_string)
 
     print()
-    print('Encoded tree:')
-    print(encoded[0].bin)
+    print('Encoded:')
+    print(encoded.bin)
 
     print()
-    print('Encoded data:')
-    print(encoded[1].bin)
+    decoded_data = coder.decode(encoded)
 
     print()
-    print('Combined:')
-    print((encoded[0]+ encoded[1]).bin)
-
-    print()
-    decoded_data = coder.decode(encoded[0], encoded[1])
-    print()
+    print('Decoded:')
     print(decoded_data)
 
     # test_string = 'How to code this string with Huffman coding?'
