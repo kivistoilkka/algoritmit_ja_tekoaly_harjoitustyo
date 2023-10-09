@@ -23,8 +23,8 @@ class TestFileIO(unittest.TestCase):
             if Path(file).exists():
                 Path(file).unlink()
 
-    def test_ASCII_text_file_is_read_to_bytes(self):
-        expected = bytes('''Lorem ipsum dolor sit amet, \
+    def test_ASCII_text_file_is_read_to_string(self):
+        expected = '''Lorem ipsum dolor sit amet, \
 consectetur adipiscing elit, sed do eiusmod tempor \
 incididunt ut labore et dolore magna aliqua. Ut enim \
 ad minim veniam, quis nostrud exercitation ullamco \
@@ -32,7 +32,7 @@ laboris nisi ut aliquip ex ea commodo consequat. Duis \
 aute irure dolor in reprehenderit in voluptate velit \
 esse cillum dolore eu fugiat nulla pariatur. Excepteur \
 sint occaecat cupidatat non proident, sunt in culpa \
-qui officia deserunt mollit anim id est laborum.''', encoding='ISO8859-1')
+qui officia deserunt mollit anim id est laborum.'''
 
         text = self.io.read_text_file(
             './src/tests/text_files/loremipsum446_ISO8859-1.txt')
@@ -64,8 +64,8 @@ qui officia deserunt mollit anim id est laborum.'''
             result_text = file.read()
             self.assertEqual(result_text, expected)
 
-    def test_ASCII_text_file_with_multiple_rows_is_read_to_bytes(self):
-        expected = bytes('''Lorem ipsum dolor sit amet, \
+    def test_ASCII_text_file_with_multiple_rows_is_read_to_string(self):
+        expected = '''Lorem ipsum dolor sit amet, \
 consectetur adipiscing elit, sed do eiusmod tempor \
 incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco \
@@ -73,7 +73,7 @@ laboris nisi ut aliquip ex ea commodo consequat.
 Duis aute irure dolor in reprehenderit in voluptate velit \
 esse cillum dolore eu fugiat nulla pariatur. Excepteur \
 sint occaecat cupidatat non proident, sunt in culpa \
-qui officia deserunt mollit anim id est laborum.''', encoding='ISO8859-1')
+qui officia deserunt mollit anim id est laborum.'''
 
         text = self.io.read_text_file(
             './src/tests/text_files/loremipsum446_3rows_ISO8859-1.txt'

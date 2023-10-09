@@ -58,7 +58,7 @@ class TextCompressorService:
         match decoding_type:
             case 'huffman coding':
                 data = self.file_io.read_binary_file(encoded_file_name)
-                decoded_data = self.huffman_coder.decode(encoded_data)
+                decoded_data = self.huffman_coder.decode(data)
                 return self.file_io.write_text_file(decoded_data, decoded_file_name)
             case 'lzw':
                 data = self.file_io.read_text_file(encoded_file_name)

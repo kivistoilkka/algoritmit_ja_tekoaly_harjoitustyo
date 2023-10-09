@@ -22,8 +22,8 @@ class TestTextCompressorService(unittest.TestCase):
             './src/tests/write_test_integration1.txt',
             './src/tests/write_test_integration2_encoded.txt',
             './src/tests/write_test_integration2_decoded.txt',
-            # './src/tests/write_test_integration3_encoded.txt',
-            # './src/tests/write_test_integration3_decoded.txt'
+             './src/tests/write_test_integration3_encoded.txt',
+             './src/tests/write_test_integration3_decoded.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():
@@ -33,8 +33,8 @@ class TestTextCompressorService(unittest.TestCase):
         expected = Bits(bin='01011001100010110001110110010000101100001101100010101100101\
 110011001100110011001101110111011101110111011101110111011001001001001001001001001001001001\
 001011011011011011011011011011011011011011111111111111111111111111111111111111111111111110\
-00000000000000000000000000000000000000000000').bin
-        print(len(expected))
+00000000000000000000000000000000000000000000\
+00000').bin
 
         result = self.service.encode_file(
             './src/tests/text_files/aabbccddeeff101_ISO8859-1.txt',

@@ -167,8 +167,6 @@ class TestHuffmanCoder(unittest.TestCase):
         expected = b'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
 
         result = self.coder.decode(encoded_data)
-        print('Expected lenght:', len(expected))
-        print('Result length:', len(result))
         self.assertEqual(result, expected)
 
     def test_encode_returns_correct_bitarray(self):
