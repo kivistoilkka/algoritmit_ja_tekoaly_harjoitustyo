@@ -106,10 +106,8 @@ qui officia deserunt mollit anim id est laborum.'''
             result_text = file.read()
             self.assertEqual(result_text, expected)
 
-    def test_bitarray_data_can_be_saved_to_binary_file(self):
-        data = BitArray(
-            bytes('Lorem ipsum', encoding='ISO8859-1')
-        )
+    def test_bytes_data_can_be_saved_to_binary_file(self):
+        data = bytes('Lorem ipsum', encoding='ISO8859-1')
         expected = Bits('0x4C6F72656D20697073756D')
 
         result = self.io.write_binary_file(data, './src/tests/write_test3.txt')
@@ -118,15 +116,15 @@ qui officia deserunt mollit anim id est laborum.'''
             result_binary = file.read()
             self.assertEqual(result_binary, expected)
 
-    def test_bitarray_data_can_be_saved_to_binary_file_when_not_complete_bytes(self):
-        data = BitArray(bin='0110 1010 111')
-        expected = Bits('0x6AE0')
+    # def test_bytes_data_can_be_saved_to_binary_file_when_not_complete_bytes(self):
+    #     data = BitArray(bin='0110 1010 111')
+    #     expected = Bits('0x6AE0')
 
-        result = self.io.write_binary_file(data, './src/tests/write_test4.txt')
-        self.assertTrue(result)
-        with open('./src/tests/write_test4.txt', mode='rb') as file:
-            result_binary = file.read()
-            self.assertEqual(result_binary, expected)
+    #     result = self.io.write_binary_file(data, './src/tests/write_test4.txt')
+    #     self.assertTrue(result)
+    #     with open('./src/tests/write_test4.txt', mode='rb') as file:
+    #         result_binary = file.read()
+    #         self.assertEqual(result_binary, expected)
 
     def test_binary_file_is_read_to_bytes(self):
         data = Bits('0x4C6F72656D20697073756D')

@@ -59,11 +59,11 @@ class FileIO:
         except OSError:
             return None
 
-    def write_binary_file(self, data: BitArray, filename: str) -> bool:
-        """Method for writing BitArray data to binary file, filling with 0 bits at the end to complete bytes.
+    def write_binary_file(self, data: bytes, filename: str) -> bool:
+        """Method for writing bytes data to binary file, filling with 0 bits at the end to complete bytes.
 
         Args:
-            data (BitArray): Binary data to be saved
+            data (bytes): Binary data to be saved
             filename (str): Path and name of the file to be written
 
         Returns:
@@ -71,7 +71,7 @@ class FileIO:
         """
         try:
             with open(filename, 'wb') as file:
-                data.tofile(file)
+                file.write(data)
             return True
         except OSError:
             return False

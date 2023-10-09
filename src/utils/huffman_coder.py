@@ -27,12 +27,11 @@ class HuffmanCoder:
         symbols_and_frequencies = self.calculate_frequencies(input)
         tree = self.create_huffman_tree(symbols_and_frequencies)
         table = self.create_huffman_table(tree)
-        print(table)
         encoded_data = self.huffman_encode_data(input, table)
         encoded_tree = self.encode_huffman_tree(tree)
         return encoded_tree + encoded_data
 
-    def decode(self, encoded_bytes: bytes) -> bytes:
+    def decode(self, encoded_bytes: BitArray) -> bytes:
         """Method for decoding Huffman coded data using given encoded Huffman tree
 
         Args:
@@ -110,9 +109,6 @@ class HuffmanCoder:
         return encoded_tree
 
     def decode_huffman_tree(self, encoded_tree: ConstBitStream) -> HuffmanTreeNode:
-        print('Tree to decode:')
-        print(encoded_tree.bin)
-        print()
         huffman_tree_root = self.add_node_to_decoded_tree(encoded_tree)
         return huffman_tree_root
 
@@ -130,13 +126,11 @@ class HuffmanCoder:
         node = tree
         while True:
             current_bit = encoded_data.read(1)
-            print('current bit:', current_bit)
             if current_bit == bin(0) and node.left_child:
                 node = node.left_child
             elif node.right_child:
                 node = node.right_child
             if node.is_leaf():
-                print('symbol:', node.symbol)
                 decoded_data += node.symbol
                 node = tree
             if encoded_data.pos == len(encoded_data):
