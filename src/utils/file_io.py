@@ -24,20 +24,19 @@ class FileIO:
         except OSError:
             return None
 
-    def write_text_file(self, data: bytes, filename: str) -> bool:
+    def write_text_file(self, data: str, filename: str) -> bool:
         """Method for writing data to text file using ISO8859-1 encoding.
 
         Args:
-            data (bytes): Text data to be saved
+            data (str): Text data to be saved
             filename (str): Path and name of the file to be written
 
         Returns:
             bool: True if writing is successful
         """
-        data_str = str(data, encoding='ISO8859-1')
         try:
             with open(filename, 'w', encoding='ISO8859-1') as file:
-                file.write(data_str)
+                file.write(data)
             return True
         except OSError:
             return False

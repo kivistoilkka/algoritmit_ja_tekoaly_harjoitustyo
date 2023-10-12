@@ -65,7 +65,8 @@ class TextCompressorService:
                 padding_bits_used = data_bitarray[0:8].int
                 nonpadded_data = data_bitarray[8:-padding_bits_used]
                 decoded_data = self.huffman_coder.decode(nonpadded_data)
-                return self.file_io.write_text_file(decoded_data, decoded_file_name)
+                decoded_string = str(decoded_data, encoding='ISO8859-1')
+                return self.file_io.write_text_file(decoded_string, decoded_file_name)
             case 'lzw':
                 data = self.file_io.read_binary_file(encoded_file_name)
                 decoded_data = self.lzw_coder.decode(data)
