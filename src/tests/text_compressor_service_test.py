@@ -17,6 +17,18 @@ class TestTextCompressorService(unittest.TestCase):
         self.service = TextCompressorService(
             self.io_mock, self.huffman_coder_mock, self.lzw_coder_mock)
 
+    def test_encode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
+        self.io_mock.read_text_file.return_value = '''aaaaabbbbbbbbbcccccccccccc\
+dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
+        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
+            self.service.encode_file(
+                './filename', './filename_encoded', 'imaginary')
+
+    def test_decode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
+        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
+            self.service.decode_file(
+                './filename', './filename_decoded', 'imaginary')
+
     def test_encode_file_with_huffman_reads_file_and_encodes_data_and_saves_data_to_new_file(self):
         self.io_mock.read_text_file.return_value = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'
         self.io_mock.write_binary_file.return_value = True
@@ -44,14 +56,6 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.io_mock.write_binary_file.assert_called_with(
             expected_written, './filename_encoded')
-
-    def test_encode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
-        self.io_mock.read_text_file.return_value = '''aaaaabbbbbbbbbcccccccccccc\
-dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
-
-        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
-            self.service.encode_file(
-                './filename', './filename_encoded', 'imaginary')
 
     def test_decode_file_with_huffman_reads_file_and_decodes_data_and_saves_data_to_new_file(self):
         self.io_mock.read_binary_file.return_value = Bits(bin='\
@@ -91,7 +95,136 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
         self.io_mock.write_text_file.assert_called_with(
             expected_written, './filename_decoded')
 
-    def test_decode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
-        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
-            self.service.decode_file(
-                './filename', './filename_decoded', 'imaginary')
+    def test_encode_file_with_lzw_reads_file_and_encodes_data_and_saves_data_to_new_file(self):
+        self.io_mock.read_text_file.return_value = 'Testing this test thing here'
+        self.io_mock.write_binary_file.return_value = True
+        self.lzw_coder_mock.encode.return_value = Bits(bin='\
+0000000001010100\
+0000000001100101\
+0000000001110011\
+0000000001110100\
+0000000001101001\
+0000000001101110\
+0000000001100111\
+0000000000100000\
+0000000001110100\
+0000000001101000\
+0000000001101001\
+0000000001110011\
+0000000100000111\
+0000000100000001\
+0000000001110100\
+0000000100000111\
+0000000100001001\
+0000000100000101\
+0000000000100000\
+0000000001101000\
+0000000001100101\
+0000000001110010\
+0000000001100101'
+        ).bytes
+        expected_written = Bits(bin='\
+0000000001010100\
+0000000001100101\
+0000000001110011\
+0000000001110100\
+0000000001101001\
+0000000001101110\
+0000000001100111\
+0000000000100000\
+0000000001110100\
+0000000001101000\
+0000000001101001\
+0000000001110011\
+0000000100000111\
+0000000100000001\
+0000000001110100\
+0000000100000111\
+0000000100001001\
+0000000100000101\
+0000000000100000\
+0000000001101000\
+0000000001100101\
+0000000001110010\
+0000000001100101'
+        ).bytes
+
+        result = self.service.encode_file(
+            './filename', './filename_encoded', 'lzw')
+
+        self.assertTrue(result)
+        self.io_mock.read_text_file.assert_called_with('./filename')
+        self.lzw_coder_mock.encode.assert_called_with(
+            'Testing this test thing here'
+        )
+        self.io_mock.write_binary_file.assert_called_with(
+            expected_written, './filename_encoded')
+
+    def test_decode_file_with_lzw_reads_file_and_decodes_data_and_saves_data_to_new_file(self):
+        self.io_mock.read_binary_file.return_value = Bits(bin='\
+0000000001010100\
+0000000001100101\
+0000000001110011\
+0000000001110100\
+0000000001101001\
+0000000001101110\
+0000000001100111\
+0000000000100000\
+0000000001110100\
+0000000001101000\
+0000000001101001\
+0000000001110011\
+0000000100000111\
+0000000100000001\
+0000000001110100\
+0000000100000111\
+0000000100001001\
+0000000100000101\
+0000000000100000\
+0000000001101000\
+0000000001100101\
+0000000001110010\
+0000000001100101'
+        ).bytes
+        self.io_mock.write_text_file.return_value = True
+        self.lzw_coder_mock.decode.return_value = (
+            'Testing this test thing here'
+        )
+        expected_written = (
+            'Testing this test thing here'
+        )
+
+        result = self.service.decode_file(
+            './filename', './filename_decoded', 'lzw')
+
+        self.assertTrue(result)
+        self.io_mock.read_binary_file.assert_called_with('./filename')
+        self.lzw_coder_mock.decode.assert_called_with(
+            Bits(bin='\
+0000000001010100\
+0000000001100101\
+0000000001110011\
+0000000001110100\
+0000000001101001\
+0000000001101110\
+0000000001100111\
+0000000000100000\
+0000000001110100\
+0000000001101000\
+0000000001101001\
+0000000001110011\
+0000000100000111\
+0000000100000001\
+0000000001110100\
+0000000100000111\
+0000000100001001\
+0000000100000101\
+0000000000100000\
+0000000001101000\
+0000000001100101\
+0000000001110010\
+0000000001100101'
+            ).bytes
+        )
+        self.io_mock.write_text_file.assert_called_with(
+            expected_written, './filename_decoded')

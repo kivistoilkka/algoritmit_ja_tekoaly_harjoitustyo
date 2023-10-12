@@ -2,9 +2,7 @@
 
 ![GHA workflow badge](https://github.com/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/graph/badge.svg?token=YMC46OV14B)](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo)
 
-Sovellus tekstitiedostojen pakkaamiseen käyttäen Huffman- ja LZW-pakkausalgoritmeja.
-
-Tällä hetkellä sovelluksella voi käyttöliittymän kautta koodata ASCII (ISO8859-1) muotoisia tekstitiedostoja Huffmanin koodauksella uuteen tiedostoon ja purkaa tuollaiseen tiedostoon tallennetun tekstin takaisin luettavaan muotoon. Sovellus ei siis vielä tiivistä tietoa.
+Sovellus ASCII (ISO8859-1) -tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja käyttäen.
 
 ## Dokumentaatio
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
@@ -16,6 +14,7 @@ Tällä hetkellä sovelluksella voi käyttöliittymän kautta koodata ASCII (ISO
 - [Viikko 3](dokumentaatio/viikkoraportti3.md)
 - [Viikko 4](dokumentaatio/viikkoraportti4.md)
 - [Viikko 5](dokumentaatio/viikkoraportti5.md)
+- [Viikko 6](dokumentaatio/viikkoraportti6.md)
 
 ## Asennusohjeet
 
