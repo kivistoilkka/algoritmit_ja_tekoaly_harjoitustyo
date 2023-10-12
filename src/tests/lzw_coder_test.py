@@ -7,6 +7,6 @@ class TestLZWCoder(unittest.TestCase):
         self.coder = LZWCoder()
         self.maxDiff
 
-    def test_encode_returns_list(self):
+    def test_encode_returns_bytes(self):
         result = self.coder.encode('Hello world!')
-        self.assertTrue(isinstance(result, list))
+        self.assertTrue(isinstance(result, bytes))

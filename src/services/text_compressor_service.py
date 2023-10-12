@@ -38,8 +38,7 @@ class TextCompressorService:
                 return self.file_io.write_binary_file(padded_data, encoded_file_name)
             case 'lzw':
                 encoded_data = self.lzw_coder.encode(original_data)
-                encoded_data_list_str = [str(num) for num in encoded_data]
-                return self.file_io.write_text_file(','.join(encoded_data_list_str), encoded_file_name)
+                return self.file_io.write_binary_file(encoded_data, encoded_file_name)
             case _default:
                 raise ValueError('Encoding type "' +
                                  encoding_type + '" not available')
@@ -68,9 +67,8 @@ class TextCompressorService:
                 decoded_data = self.huffman_coder.decode(nonpadded_data)
                 return self.file_io.write_text_file(decoded_data, decoded_file_name)
             case 'lzw':
-                data = self.file_io.read_text_file(encoded_file_name)
-                encoded_data = [int(num) for num in data.split(',')]
-                decoded_data = self.lzw_coder.decode(encoded_data)
+                data = self.file_io.read_binary_file(encoded_file_name)
+                decoded_data = self.lzw_coder.decode(data)
                 return self.file_io.write_text_file(decoded_data, decoded_file_name)
             case _default:
                 raise ValueError('Encoding type "' +
