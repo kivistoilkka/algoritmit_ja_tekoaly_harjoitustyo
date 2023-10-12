@@ -2,6 +2,7 @@ from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
 from utils.lzw_coder import LZWCoder
 
+from bitstring import BitArray
 
 class TextCompressorService:
     """Service class for handling application logic
@@ -27,16 +28,17 @@ class TextCompressorService:
             bool: True if encoding and file saving is successful
         """
 
-        original_data = self.file_io.read_file(original_file_name)
+        original_data = self.file_io.read_text_file(original_file_name)
         match encoding_type:
             case 'huffman coding':
-                encoded_data, encoded_tree = self.huffman_coder.encode(
-                    original_data)
-                return self.file_io.write_file(encoded_tree+'\n'+encoded_data, encoded_file_name)
+                encoded_data = self.huffman_coder.encode(original_data)
+                needed_padding = 8-(len(encoded_data)%8)
+                padding_bits = BitArray(needed_padding)
+                padded_data = (needed_padding.to_bytes()+encoded_data+padding_bits).bytes
+                return self.file_io.write_binary_file(padded_data, encoded_file_name)
             case 'lzw':
                 encoded_data = self.lzw_coder.encode(original_data)
-                encoded_data_list_str = [str(num) for num in encoded_data]
-                return self.file_io.write_file(','.join(encoded_data_list_str), encoded_file_name)
+                return self.file_io.write_binary_file(encoded_data, encoded_file_name)
             case _default:
                 raise ValueError('Encoding type "' +
                                  encoding_type + '" not available')
@@ -56,20 +58,19 @@ class TextCompressorService:
             bool: True if decoding and file saving is successful
         """
 
-        data = self.file_io.read_file(encoded_file_name)
         match decoding_type:
             case 'huffman coding':
-                split_data = data.split('\n')
-                # TODO: Better way to handle line break characters, easier when working with bytes
-                encoded_tree = '\n'.join(split_data[0:-1])
-                encoded_data = split_data[-1]
-                decoded_data = self.huffman_coder.decode(
-                    encoded_data, encoded_tree)
-                return self.file_io.write_file(decoded_data, decoded_file_name)
+                data = self.file_io.read_binary_file(encoded_file_name)
+                data_bitarray = BitArray(data)
+                padding_bits_used = data_bitarray[0:8].int
+                nonpadded_data = data_bitarray[8:-padding_bits_used]
+                decoded_data = self.huffman_coder.decode(nonpadded_data)
+                decoded_string = str(decoded_data, encoding='ISO8859-1')
+                return self.file_io.write_text_file(decoded_string, decoded_file_name)
             case 'lzw':
-                encoded_data = [int(num) for num in data.split(',')]
-                decoded_data = self.lzw_coder.decode(encoded_data)
-                return self.file_io.write_file(decoded_data, decoded_file_name)
+                data = self.file_io.read_binary_file(encoded_file_name)
+                decoded_data = self.lzw_coder.decode(data)
+                return self.file_io.write_text_file(decoded_data, decoded_file_name)
             case _default:
                 raise ValueError('Encoding type "' +
                                  decoding_type + '" not available')
