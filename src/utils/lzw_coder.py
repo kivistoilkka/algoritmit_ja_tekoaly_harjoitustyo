@@ -48,20 +48,14 @@ class LZWCoder:
         word = dictionary[key]
         output.write(word)
         previous_reset = False
-        reset_counter = 0
         for key_bits in encoded_generator:
             key = key_bits.unpack(f'uint:{BITS_IN_WORD}')[0]
-            if reset_counter > 0:
-                print(entry)
-                reset_counter -= 1
             if key == RESET_DICTIONARY_CODE:
                 previous_reset = True
-                reset_counter = 50
                 dictionary = {i: i.to_bytes(1) for i in range(DICTIONARY_SIZE)}
                 code = DICTIONARY_SIZE+1
                 continue
             if previous_reset:
-                print(key, dictionary[key])
                 previous_reset = False
                 word = dictionary[key]
                 output.write(word)
