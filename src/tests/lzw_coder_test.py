@@ -5,6 +5,7 @@ from bitstring import Bits
 from config import ENCODING
 from utils.lzw_coder import LZWCoder
 
+
 class TestLZWCoder(unittest.TestCase):
     def setUp(self):
         self.coder = LZWCoder()
@@ -40,7 +41,7 @@ class TestLZWCoder(unittest.TestCase):
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bytes
+                        ).bytes
         result = self.coder.encode(test_string)
         self.assertEqual(result, expected)
 
@@ -69,7 +70,7 @@ class TestLZWCoder(unittest.TestCase):
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bytes
+                          ).bytes
         expected = 'Testing this test thing here'.encode(encoding=ENCODING)
         result = self.coder.decode(test_bytes)
         self.assertEqual(result, expected)

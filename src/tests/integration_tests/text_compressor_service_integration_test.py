@@ -16,24 +16,12 @@ class TestTextCompressorService(unittest.TestCase):
         self.io = FileIO()
         self.huffman_coder = HuffmanCoder()
         self.lzw_coder = LZWCoder()
-        self.service = TextCompressorService(self.io, self.huffman_coder, self.lzw_coder)
+        self.service = TextCompressorService(
+            self.io, self.huffman_coder, self.lzw_coder)
 
     def tearDown(self):
         test_text_files = [
-            './src/tests/write_test_integration1.txt'
-            ,'./src/tests/write_test_integration2_encoded.txt'
-            ,'./src/tests/write_test_integration2_decoded.txt'
-            ,'./src/tests/write_test_integration3_encoded.txt'
-            ,'./src/tests/write_test_integration3_decoded.txt'
-            ,'./src/tests/write_test_integration4.txt'
-            ,'./src/tests/write_test_integration5_encoded.txt'
-            ,'./src/tests/write_test_integration5_decoded.txt'
-            ,'./src/tests/write_test_integration6_encoded.txt'
-            ,'./src/tests/write_test_integration6_decoded.txt'
-            ,'./src/tests/write_test_integration7_encoded.txt'
-            ,'./src/tests/write_test_integration7_decoded.txt'
-            ,'./src/tests/write_test_integration8_encoded.txt'
-            ,'./src/tests/write_test_integration8_decoded.txt'
+            './src/tests/write_test_integration1.txt', './src/tests/write_test_integration2_encoded.txt', './src/tests/write_test_integration2_decoded.txt', './src/tests/write_test_integration3_encoded.txt', './src/tests/write_test_integration3_decoded.txt', './src/tests/write_test_integration4.txt', './src/tests/write_test_integration5_encoded.txt', './src/tests/write_test_integration5_decoded.txt', './src/tests/write_test_integration6_encoded.txt', './src/tests/write_test_integration6_decoded.txt', './src/tests/write_test_integration7_encoded.txt', './src/tests/write_test_integration7_decoded.txt', './src/tests/write_test_integration8_encoded.txt', './src/tests/write_test_integration8_decoded.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():
@@ -126,7 +114,7 @@ class TestTextCompressorService(unittest.TestCase):
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bin
+                        ).bin
 
         result = self.service.encode_file(
             './src/tests/text_files/testingthistest28_Windows-1252.txt',

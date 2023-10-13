@@ -14,11 +14,7 @@ class TestFileIO(unittest.TestCase):
 
     def tearDown(self):
         test_text_files = [
-            './src/tests/write_test1.txt'
-            ,'./src/tests/write_test2.txt'
-            ,'./src/tests/write_test3.txt'
-            ,'./src/tests/write_test4.txt'
-            ,'./src/tests/read_test1.txt'
+            './src/tests/write_test1.txt', './src/tests/write_test2.txt', './src/tests/write_test3.txt', './src/tests/write_test4.txt', './src/tests/read_test1.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():

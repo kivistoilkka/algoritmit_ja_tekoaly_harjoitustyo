@@ -1,6 +1,5 @@
-from bitstring import BitArray
-
 from config import ENCODING
+
 
 class FileIO:
     """Class handling file reading and writing
@@ -10,7 +9,8 @@ class FileIO:
         pass
 
     def read_text_file(self, filename: str) -> str:
-        """Method for reading text files, assumes that files are saved using Windows-1252 encoding.
+        """Method for reading text files, assumes that files are saved
+        using encoding specified in config.py.
 
         Args:
             filename (str): Path and name of the file
@@ -27,7 +27,8 @@ class FileIO:
             return None
 
     def write_text_file(self, data: str, filename: str) -> bool:
-        """Method for writing data to text file using Windows-1252 encoding.
+        """Method for writing data to text file using encoding specified
+        in config.py.
 
         Args:
             data (str): Text data to be saved
@@ -61,7 +62,8 @@ class FileIO:
             return None
 
     def write_binary_file(self, data: bytes, filename: str) -> bool:
-        """Method for writing bytes data to binary file, filling with 0 bits at the end to complete bytes.
+        """Method for writing bytes data to binary file, filling
+        with 0 bits at the end to complete bytes.
 
         Args:
             data (bytes): Binary data to be saved

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from bitstring import Bits, BitArray, ConstBitStream
+from bitstring import Bits, BitArray
 
 from config import ENCODING
 from services.text_compressor_service import TextCompressorService
@@ -21,12 +21,12 @@ class TestTextCompressorService(unittest.TestCase):
     def test_encode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
         self.io_mock.read_text_file.return_value = '''aaaaabbbbbbbbbcccccccccccc\
 dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
-        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
+        with self.assertRaisesRegex(type(ValueError()), 'Compression method "imaginary" not available'):
             self.service.encode_file(
                 './filename', './filename_encoded', 'imaginary')
 
     def test_decode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
-        with self.assertRaisesRegex(type(ValueError()), 'Encoding type "imaginary" not available'):
+        with self.assertRaisesRegex(type(ValueError()), 'Compression method "imaginary" not available'):
             self.service.decode_file(
                 './filename', './filename_decoded', 'imaginary')
 
@@ -123,7 +123,7 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bytes
+                                                       ).bytes
         expected_written = Bits(bin='\
 0000000001010100\
 0000000001100101\
@@ -148,7 +148,7 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bytes
+                                ).bytes
 
         result = self.service.encode_file(
             './filename', './filename_encoded', 'lzw')
@@ -186,7 +186,7 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001100101\
 0000000001110010\
 0000000001100101'
-        ).bytes
+                                                          ).bytes
         self.io_mock.write_binary_file.return_value = True
         self.lzw_coder_mock.decode.return_value = (
             'Testing this test thing here'.encode(ENCODING)
@@ -225,7 +225,7 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001100101\
 0000000001110010\
 0000000001100101'
-            ).bytes
+                 ).bytes
         )
         self.io_mock.write_binary_file.assert_called_with(
             expected_written, './filename_decoded')

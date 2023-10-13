@@ -8,6 +8,7 @@ MAX_DICTIONARY_SIZE = 65535
 RESET_DICTIONARY_CODE = 256
 BITS_IN_WORD = 16
 
+
 class LZWCoder:
     def __init__(self) -> None:
         pass
@@ -29,7 +30,8 @@ class LZWCoder:
                 word = char_byte
             if len(dictionary) == MAX_DICTIONARY_SIZE:
                 output.append(Bits(uint=dictionary[word], length=BITS_IN_WORD))
-                output.append(Bits(uint=RESET_DICTIONARY_CODE, length=BITS_IN_WORD))
+                output.append(
+                    Bits(uint=RESET_DICTIONARY_CODE, length=BITS_IN_WORD))
                 dictionary = {i.to_bytes(1): i for i in range(DICTIONARY_SIZE)}
                 word = b''
                 code = DICTIONARY_SIZE+1
@@ -46,15 +48,15 @@ class LZWCoder:
         word = dictionary[key]
         output.write(word)
         previous_reset = False
-        reset_counter = 0 ##
+        reset_counter = 0
         for key_bits in encoded_generator:
             key = key_bits.unpack(f'uint:{BITS_IN_WORD}')[0]
-            if reset_counter > 0: ##
+            if reset_counter > 0:
                 print(entry)
                 reset_counter -= 1
             if key == RESET_DICTIONARY_CODE:
                 previous_reset = True
-                reset_counter = 50 ##
+                reset_counter = 50
                 dictionary = {i: i.to_bytes(1) for i in range(DICTIONARY_SIZE)}
                 code = DICTIONARY_SIZE+1
                 continue
