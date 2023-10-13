@@ -3,6 +3,7 @@ from unittest.mock import Mock
 
 from bitstring import Bits, BitArray, ConstBitStream
 
+from config import ENCODING
 from services.text_compressor_service import TextCompressorService
 from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
@@ -96,7 +97,7 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
             expected_written, './filename_decoded')
 
     def test_encode_file_with_lzw_reads_file_and_encodes_data_and_saves_data_to_new_file(self):
-        self.io_mock.read_text_file.return_value = 'Testing this test thing here'
+        self.io_mock.read_binary_file.return_value = b'Testing this test thing here'
         self.io_mock.write_binary_file.return_value = True
         self.lzw_coder_mock.encode.return_value = Bits(bin='\
 0000000001010100\
@@ -153,9 +154,9 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
             './filename', './filename_encoded', 'lzw')
 
         self.assertTrue(result)
-        self.io_mock.read_text_file.assert_called_with('./filename')
+        self.io_mock.read_binary_file.assert_called_with('./filename')
         self.lzw_coder_mock.encode.assert_called_with(
-            'Testing this test thing here'
+            'Testing this test thing here'.encode(ENCODING)
         )
         self.io_mock.write_binary_file.assert_called_with(
             expected_written, './filename_encoded')
@@ -186,12 +187,12 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001110010\
 0000000001100101'
         ).bytes
-        self.io_mock.write_text_file.return_value = True
+        self.io_mock.write_binary_file.return_value = True
         self.lzw_coder_mock.decode.return_value = (
-            'Testing this test thing here'
+            'Testing this test thing here'.encode(ENCODING)
         )
         expected_written = (
-            'Testing this test thing here'
+            b'Testing this test thing here'
         )
 
         result = self.service.decode_file(
@@ -226,5 +227,5 @@ dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
 0000000001100101'
             ).bytes
         )
-        self.io_mock.write_text_file.assert_called_with(
+        self.io_mock.write_binary_file.assert_called_with(
             expected_written, './filename_decoded')

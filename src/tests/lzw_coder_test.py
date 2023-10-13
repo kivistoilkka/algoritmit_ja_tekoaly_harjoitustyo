@@ -2,6 +2,7 @@ import unittest
 
 from bitstring import Bits
 
+from config import ENCODING
 from utils.lzw_coder import LZWCoder
 
 class TestLZWCoder(unittest.TestCase):
@@ -10,11 +11,11 @@ class TestLZWCoder(unittest.TestCase):
         self.maxDiff
 
     def test_encode_returns_bytes(self):
-        result = self.coder.encode('Hello world!')
+        result = self.coder.encode('Hello world!'.encode(encoding=ENCODING))
         self.assertTrue(isinstance(result, bytes))
 
     def test_encode_returns_expected_bytes(self):
-        test_string = 'Testing this test thing here'
+        test_string = 'Testing this test thing here'.encode(encoding=ENCODING)
         expected = Bits(bin='\
 0000000001010100\
 0000000001100101\
@@ -69,7 +70,7 @@ class TestLZWCoder(unittest.TestCase):
 0000000001110010\
 0000000001100101'
         ).bytes
-        expected = 'Testing this test thing here'
+        expected = 'Testing this test thing here'.encode(encoding=ENCODING)
         result = self.coder.decode(test_bytes)
         self.assertEqual(result, expected)
 
@@ -78,7 +79,7 @@ class TestLZWCoder(unittest.TestCase):
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\
-'''
+'''.encode(encoding=ENCODING)
         encoded = self.coder.encode(test_string)
         decoded = self.coder.decode(encoded)
         self.assertEqual(decoded, test_string)
