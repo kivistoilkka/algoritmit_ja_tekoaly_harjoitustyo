@@ -1,8 +1,9 @@
 import unittest
 from pathlib import Path
 
-from bitstring import Bits, BitArray
+from bitstring import Bits
 
+from config import ENCODING
 from utils.file_io import FileIO
 
 
@@ -35,7 +36,7 @@ sint occaecat cupidatat non proident, sunt in culpa \
 qui officia deserunt mollit anim id est laborum.'''
 
         text = self.io.read_text_file(
-            './src/tests/text_files/loremipsum446_ISO8859-1.txt')
+            './src/tests/text_files/loremipsum445_Windows-1252.txt')
         self.assertEqual(text, expected)
 
     def test_str_data_can_be_saved_to_text_file(self):
@@ -51,7 +52,7 @@ qui officia deserunt mollit anim id est laborum.'''
 
         result = self.io.write_text_file(data, './src/tests/write_test1.txt')
         self.assertTrue(result)
-        with open('./src/tests/write_test1.txt', encoding='ISO8859-1') as file:
+        with open('./src/tests/write_test1.txt', encoding=ENCODING) as file:
             result_text = file.read()
             self.assertEqual(result_text, data)
 
@@ -67,7 +68,7 @@ sint occaecat cupidatat non proident, sunt in culpa \
 qui officia deserunt mollit anim id est laborum.'''
 
         text = self.io.read_text_file(
-            './src/tests/text_files/loremipsum446_3rows_ISO8859-1.txt'
+            './src/tests/text_files/loremipsum445_3rows_Windows-1252.txt'
         )
         self.assertEqual(text, expected)
 
@@ -84,12 +85,12 @@ qui officia deserunt mollit anim id est laborum.'''
 
         result = self.io.write_text_file(data, './src/tests/write_test2.txt')
         self.assertTrue(result)
-        with open('./src/tests/write_test2.txt', encoding='ISO8859-1') as file:
+        with open('./src/tests/write_test2.txt', encoding=ENCODING) as file:
             result_text = file.read()
             self.assertEqual(result_text, data)
 
     def test_bytes_data_can_be_saved_to_binary_file(self):
-        data = bytes('Lorem ipsum', encoding='ISO8859-1')
+        data = bytes('Lorem ipsum', encoding=ENCODING)
         expected = Bits('0x4C6F72656D20697073756D')
 
         result = self.io.write_binary_file(data, './src/tests/write_test3.txt')
@@ -102,7 +103,7 @@ qui officia deserunt mollit anim id est laborum.'''
         data = Bits('0x4C6F72656D20697073756D')
         with open('./src/tests/read_test1.txt', mode='wb') as file:
             data.tofile(file)
-        expected = bytes('Lorem ipsum', encoding='ISO8859-1')
+        expected = bytes('Lorem ipsum', encoding=ENCODING)
 
         result = self.io.read_binary_file(
             './src/tests/read_test1.txt')

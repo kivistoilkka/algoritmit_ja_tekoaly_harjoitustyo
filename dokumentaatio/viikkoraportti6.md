@@ -11,6 +11,8 @@ Torstai 12.10. *h*
 - LZW toimimaan biteillä
     - branchissa *working-with-bytes*
 - Bittitoiminnallisuuden tuominen main-branchiin ja osaksi varsinaisen sovelluksen toiminnallisuutta
+- Lisää testejä LZWCoderille ja TextCompressorServicelle
+- Lisää integraatiotestejä
 
 ## Mitä opin?
 

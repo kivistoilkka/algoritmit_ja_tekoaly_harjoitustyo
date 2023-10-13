@@ -1,8 +1,10 @@
+from bitstring import BitArray
+
+from config import ENCODING
 from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
 from utils.lzw_coder import LZWCoder
 
-from bitstring import BitArray
 
 class TextCompressorService:
     """Service class for handling application logic
@@ -65,7 +67,7 @@ class TextCompressorService:
                 padding_bits_used = data_bitarray[0:8].int
                 nonpadded_data = data_bitarray[8:-padding_bits_used]
                 decoded_data = self.huffman_coder.decode(nonpadded_data)
-                decoded_string = str(decoded_data, encoding='ISO8859-1')
+                decoded_string = str(decoded_data, encoding=ENCODING)
                 return self.file_io.write_text_file(decoded_string, decoded_file_name)
             case 'lzw':
                 data = self.file_io.read_binary_file(encoded_file_name)

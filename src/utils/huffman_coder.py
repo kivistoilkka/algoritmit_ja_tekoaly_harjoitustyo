@@ -4,6 +4,7 @@ from heapq import heappush, heappop, heapify
 from bitstring import Bits, BitArray, ConstBitStream
 
 from entities.huffmantree_node import HuffmanTreeNode
+from config import ENCODING
 
 
 class HuffmanCoder:
@@ -23,7 +24,7 @@ class HuffmanCoder:
             BitArray: BitArray of combined encoded Huffman tree and encoded data
         """
 
-        input = input_string.encode(encoding='ISO8859-1')
+        input = input_string.encode(encoding=ENCODING)
         symbols_and_frequencies = self.calculate_frequencies(input)
         tree = self.create_huffman_tree(symbols_and_frequencies)
         table = self.create_huffman_table(tree)

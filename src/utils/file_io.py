@@ -1,5 +1,7 @@
 from bitstring import BitArray
 
+from config import ENCODING
+
 class FileIO:
     """Class handling file reading and writing
     """
@@ -8,7 +10,7 @@ class FileIO:
         pass
 
     def read_text_file(self, filename: str) -> str:
-        """Method for reading text files, assumes that files are saved using ISO8859-1 encoding.
+        """Method for reading text files, assumes that files are saved using Windows-1252 encoding.
 
         Args:
             filename (str): Path and name of the file
@@ -18,14 +20,14 @@ class FileIO:
         """
 
         try:
-            with open(filename, encoding='ISO8859-1') as file:
+            with open(filename, encoding=ENCODING) as file:
                 data = file.read()
                 return data
         except OSError:
             return None
 
     def write_text_file(self, data: str, filename: str) -> bool:
-        """Method for writing data to text file using ISO8859-1 encoding.
+        """Method for writing data to text file using Windows-1252 encoding.
 
         Args:
             data (str): Text data to be saved
@@ -35,7 +37,7 @@ class FileIO:
             bool: True if writing is successful
         """
         try:
-            with open(filename, 'w', encoding='ISO8859-1') as file:
+            with open(filename, 'w', encoding=ENCODING) as file:
                 file.write(data)
             return True
         except OSError:
