@@ -2,7 +2,7 @@
 
 ![GHA workflow badge](https://github.com/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/graph/badge.svg?token=YMC46OV14B)](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo)
 
-Sovellus ASCII (ISO8859-1) -tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja käyttäen.
+Sovellus ASCII-tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja käyttäen. LZW-toiminnallisuus tukee myös UTF-8 merkistökoodausta.
 
 ## Dokumentaatio
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
@@ -28,7 +28,7 @@ Sovellus ASCII (ISO8859-1) -tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakka
 Ohjelman suoritus tapahtuu komennolla `poetry run invoke start`.
 
 ### Testaus
-Ohjelman testit ajetaan komennolla `poetry run invoke test`.
+Ohjelman kaikki testit ajetaan komennolla `poetry run invoke test`. Pelkät yksikkötestit ajetaan komennolla `poetry run invoke unit-test` ja pelkät integraatiotestit komennolla `poetry run invoke integration-test`.
 
 ### Testikattavuus
 Ohjelmasta voi luoda HTML-muotoisen testikattavuusraportin komennolla `poetry run invoke coverage-report`. Raportti luodaan _htmlcov_-hakemistoon.

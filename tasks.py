@@ -17,6 +17,14 @@ def coverage_report(ctx):
     ctx.run('coverage html', pty=True)
 
 @task
+def unit_test(ctx):
+    ctx.run('pytest src/tests/unit_tests', pty=True)
+
+@task
+def integration_test(ctx):
+    ctx.run('pytest src/tests/integration_tests', pty=True)
+
+@task
 def lint(ctx):
     ctx.run('pylint src', pty=True)
 
