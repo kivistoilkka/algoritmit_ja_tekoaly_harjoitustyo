@@ -7,6 +7,7 @@ Sovellus ASCII-tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja
 ## Dokumentaatio
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
 - [Testausdokumentti](dokumentaatio/testausdokumentti.md)
+- [Toteutusdokumentti](dokumentaatio/toteutusdokumentti.md)
 
 ## Viikkoraportit
 - [Viikko 1](dokumentaatio/viikkoraportti1.md)
