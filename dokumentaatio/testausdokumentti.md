@@ -18,4 +18,11 @@ TextCompressorService-luokkaa on myös kehitetty testivetoisesti ja sitä on tes
 # Integraatiotestaus
 Pelkät integraatiotestit voi ajaa komennolla `poetry run invoke integration-test`.
 
-TextCompressorService-luokalle on kirjoitettu integraatiotestejä, jotka hyödyntävät oikeita tiedostokäsittelyyn ja tekstidatan koodaukseen käytettäviä luokkia. Integraatiotesteissä pakataan ja puretaan kansiosta *src/tests/text_files* löytyviä eri tavoin merkistökoodattuja tekstitiedostoja. Testauksessa käytetään myös suurikokoisia tiedostoja (pg84_frankenstein_UTF8.txt, 449.0 kB)
+TextCompressorService-luokalle on kirjoitettu integraatiotestejä, jotka hyödyntävät oikeita tiedostokäsittelyyn ja tekstidatan koodaukseen käytettäviä luokkia. Integraatiotesteissä pakataan ja puretaan kansiosta *src/tests/text_files* löytyviä eri tavoin merkistökoodattuja tekstitiedostoja. Testauksessa käytetään myös suurikokoisia tiedostoja.
+
+# Suorituskykytestaus
+Suorituskykytestit voi ajaa komennolla `poetry run invoke performance-test`.
+
+Suorituskykytestissä pakataan ja puretaan suuria tekstitiedostoja eri pakkausmenetelmillä. Pakkauksen yhteydessä lasketaan pakkaamiseen kulunut aika ja pakkausprosentti. Purkamisen yhteydessä lasketaan purkamiseen kulunut aika ja verrataan puretun tiedoston kokoa alkuperäiseen tiedostoon. Testissä käytetään seuraavia tekstitiedostoja:
+- [pg84_frankenstein_UTF8.txt](../src/tests/text_files/pg84_frankenstein_UTF8.txt), 449.0 kB, [Project Gutenberg](https://www.gutenberg.org/ebooks/84)
+- [pg11_alice_UTF8.txt](../src/tests/text_files/pg11_alice_UTF8.txt), 174.4 kB, [Project Gutenberg](https://www.gutenberg.org/ebooks/11)

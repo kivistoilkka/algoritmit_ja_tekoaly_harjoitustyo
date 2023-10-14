@@ -3,3 +3,5 @@ __pycache__
 .coverage
 htmlcov
 write_test*
+alice_*
+frankenstein_*
