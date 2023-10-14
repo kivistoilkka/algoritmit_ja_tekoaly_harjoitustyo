@@ -3,8 +3,7 @@ import unittest
 from bitstring import Bits, BitArray, ConstBitStream
 
 from config import ENCODING
-from utils.huffman_coder import HuffmanCoder
-from entities.huffmantree_node import HuffmanTreeNode
+from utils.huffman_coder import HuffmanCoder, HuffmanTreeNode
 
 
 class TestHuffmanCoder(unittest.TestCase):
