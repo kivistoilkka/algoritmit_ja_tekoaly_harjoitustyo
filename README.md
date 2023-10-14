@@ -34,7 +34,7 @@ Ohjelman kaikki testit ajetaan komennolla `poetry run invoke test`. Pelkät yksi
 ### Testikattavuus
 Ohjelmasta voi luoda HTML-muotoisen testikattavuusraportin komennolla `poetry run invoke coverage-report`. Raportti luodaan _htmlcov_-hakemistoon.
 
-## Suorituskykytestaus
+### Suorituskykytestaus
 Suorituskykytestit ajetaan komennolla `poetry run invoke performance-test`.
 
 ### Pylint
