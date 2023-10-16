@@ -14,31 +14,26 @@ class CLI:
             'Select compression option (1 Huffman coding, 2 LZW): ')
         match encoding_option:
             case '1':
-                start_time = time.time()
-                encoding_successful = self.service.encode_file(
-                    file_path, name_for_file, 'huffman coding'
-                )
-                end_time = time.time()
-                elapsed_time = end_time-start_time
-                if encoding_successful:
-                    print(
-                        f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
-                else:
-                    print(f"\nFile {file_path} couldn't be compressed")
+                method = 'huffman coding'
             case '2':
-                start_time = time.time()
-                encoding_successful = self.service.encode_file(
-                    file_path, name_for_file, 'lzw'
-                )
-                end_time = time.time()
-                elapsed_time = end_time-start_time
-                if encoding_successful:
-                    print(
-                        f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
-                else:
-                    print(f"\nFile {file_path} couldn't be compressed")
+                method = 'lzw'
             case _default:
-                print('Unknown selection')
+                method = 'unknown'
+        
+        if method == 'unknown':
+            print('Unknown selection')
+        else:
+            start_time = time.time()
+            encoding_successful = self.service.encode_file(
+                file_path, name_for_file, method
+            )
+            end_time = time.time()
+            elapsed_time = end_time-start_time
+            if encoding_successful:
+                print(
+                    f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
+            else:
+                print(f"\nFile {file_path} couldn't be compressed")
 
     def handle_decompression(self):
         encoded_file = input('Enter path to compressed file: ')
