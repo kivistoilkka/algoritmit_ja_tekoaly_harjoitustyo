@@ -1,14 +1,20 @@
-from tkinter import Tk, ttk, constants, StringVar, filedialog, messagebox
+import time
+from tkinter import ttk, constants, StringVar, filedialog, messagebox
+
+from services.text_compressor_service import TextCompressorService
 
 
 class GUI:
-    def __init__(self, root):
+    def __init__(self, root, service: TextCompressorService):
         self._root = root
+        self.service = service
 
     def _select_from_file(self):
         filetypes = (
             ('Text files', '*.txt'),
-            ('All files', '*.*')
+            ('Huffman coded files', '*.hc'),
+            ('LZW compressed files', '*.lzw'),
+            ('All files', '*')
         )
         filename = filedialog.askopenfilename(
             title='Open a file',
@@ -17,8 +23,15 @@ class GUI:
         self._from_file_var.set(filename)
 
     def _select_to_file(self):
+        filetypes = (
+            ('Text files', '*.txt'),
+            ('Huffman coded files', '*.hc'),
+            ('LZW compressed files', '*.lzw'),
+            ('All files', '*')
+        )
         filename = filedialog.asksaveasfilename(
             title='Save to file...',
+            filetypes=filetypes,
             confirmoverwrite=True
         )
         self._to_file_var.set(filename)
@@ -27,26 +40,69 @@ class GUI:
         from_value = self._from_file_var.get()
         to_value = self._to_file_var.get()
         method_value = self._method_var.get()
-        match method:
-            case 'compress':
-                messagebox.showinfo(
-                    title='Compression result',
-                    message=f"{method_value} compressing\n{from_value}\nto\n{to_value}!"
-                )
-            case 'decompress':
-                messagebox.showinfo(
-                    title='Compression result',
-                    message=f"{method_value} decompressing\n{from_value}\nto\n{to_value}!"
-                )
-            case _default:
-                messagebox.showerror(
-                    title='Error',
-                    message='something went wrong!'
-                )
+
+        if not from_value or not to_value:
+            messagebox.showerror(
+                title='Error',
+                message='Both files must be defined'
+            )
+        else:
+            match method:
+                case 'compress':
+                    try:
+                        start_time = time.time()
+                        encoding_successful = self.service.encode_file(
+                            from_value, to_value, method_value
+                        )
+                        end_time = time.time()
+                        elapsed_time = end_time-start_time
+                        if encoding_successful:
+                            messagebox.showinfo(
+                                title='Compression result',
+                                message=f"FILE\n\n{from_value}\n\nCOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time}"
+                            )
+                        else:
+                            messagebox.showerror(
+                                title='Error',
+                                message=f"\nFile {from_value} couldn't be compressed"
+                            )
+                    except (ValueError) as error:
+                        messagebox.showerror(
+                            title='Error',
+                            message=f"Error: {error}"
+                        )
+                case 'decompress':
+                    try:
+                        start_time = time.time()
+                        encoding_successful = self.service.decode_file(
+                            from_value, to_value, method_value
+                        )
+                        end_time = time.time()
+                        elapsed_time = end_time-start_time
+                        if encoding_successful:
+                            messagebox.showinfo(
+                                title='Decompression result',
+                                message=f"FILE\n\n{from_value}\n\nDECOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time}"
+                            )
+                        else:
+                            messagebox.showerror(
+                                title='Error',
+                                message=f"\nFile {from_value} couldn't be decompressed"
+                            )
+                    except (ValueError) as error:
+                        messagebox.showerror(
+                            title='Error',
+                            message=f"Error: {error}"
+                        )
+                case _default:
+                    messagebox.showerror(
+                        title='Error',
+                        message='something went wrong!'
+                    )
 
     def start(self):
         self._method_var = StringVar()
-        self._method_var.set('Huffman coding')
+        self._method_var.set('huffman coding')
         self._from_file_var = StringVar()
         self._to_file_var = StringVar()
     
@@ -71,14 +127,14 @@ class GUI:
             master=self._root,
             text='Huffman coding',
             variable=self._method_var,
-            value='Huffman coding',
+            value='huffman coding',
             state='ACTIVE'
         )
         rad_lzw = ttk.Radiobutton(
             master=self._root,
             text='Lempel-Ziv-Welch',
             variable=self._method_var,
-            value='LZW'
+            value='lzw'
         )
 
         btn_compress = ttk.Button(
@@ -108,12 +164,4 @@ class GUI:
         btn_decompress.grid(row=6, column=2, padx=5, pady=5)
 
 
-window = Tk()
-window.title('Text Compressor')
-window.resizable(False, False)
-window.geometry('420x240')
 
-gui = GUI(window)
-gui.start()
-
-window.mainloop()
