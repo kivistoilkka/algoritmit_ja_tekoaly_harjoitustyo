@@ -23,17 +23,20 @@ class CLI:
         if method == 'unknown':
             print('Unknown selection')
         else:
-            start_time = time.time()
-            encoding_successful = self.service.encode_file(
-                file_path, name_for_file, method
-            )
-            end_time = time.time()
-            elapsed_time = end_time-start_time
-            if encoding_successful:
-                print(
-                    f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
-            else:
-                print(f"\nFile {file_path} couldn't be compressed")
+            try:
+                start_time = time.time()
+                encoding_successful = self.service.encode_file(
+                    file_path, name_for_file, method
+                )
+                end_time = time.time()
+                elapsed_time = end_time-start_time
+                if encoding_successful:
+                    print(
+                        f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
+                else:
+                    print(f"\nFile {file_path} couldn't be compressed")
+            except (ValueError) as error:
+                print('Error:', error)
 
     def handle_decompression(self):
         encoded_file = input('Enter path to compressed file: ')
@@ -43,21 +46,19 @@ class CLI:
             'Select compression option (1 Huffman coding, 2 LZW): ')
         match decoding_option:
             case '1':
-                start_time = time.time()
-                decoding_successful = self.service.decode_file(
-                    encoded_file, name_for_file, 'huffman coding'
-                )
-                end_time = time.time()
-                elapsed_time = end_time-start_time
-                if decoding_successful:
-                    print(
-                        f"\nFile {encoded_file} decompressed to file {name_for_file}, elapsed time: {elapsed_time}")
-                else:
-                    print(f"\nFile {encoded_file} couldn't be decompressed")
+                method = 'huffman coding'
             case '2':
+                method = 'lzw'
+            case _default:
+                method = 'unknown'
+
+        if method == 'unknown':
+            print('Unknown selection')
+        else:
+            try:
                 start_time = time.time()
                 decoding_successful = self.service.decode_file(
-                    encoded_file, name_for_file, 'lzw'
+                    encoded_file, name_for_file, method
                 )
                 end_time = time.time()
                 elapsed_time = end_time-start_time
@@ -66,8 +67,8 @@ class CLI:
                         f"\nFile {encoded_file} decompressed to file {name_for_file}, elapsed time: {elapsed_time}")
                 else:
                     print(f"\nFile {encoded_file} couldn't be decompressed")
-            case _default:
-                print('Unknown selection')
+            except (ValueError) as error:
+                print('Error:', error)
 
     def run(self):
         print()
