@@ -22,7 +22,7 @@ class TestHuffmanCoder(unittest.TestCase):
             ' ': 7,
             't': 4
         }
-        result = self.coder.create_huffman_tree(symbols_and_weights)
+        result = self.coder._create_huffman_tree(symbols_and_weights)
         self.assertTrue(isinstance(result, HuffmanTreeNode))
 
     def test_create_huffman_tree_returns_root_node(self):
@@ -34,7 +34,7 @@ class TestHuffmanCoder(unittest.TestCase):
             't': 4
         }
 
-        result = self.coder.create_huffman_tree(symbols_and_weights)
+        result = self.coder._create_huffman_tree(symbols_and_weights)
         self.assertEqual(len(result.symbol), 5)
 
     def test_create_huffman_table_returns_correct_dictionary(self):
@@ -55,8 +55,8 @@ class TestHuffmanCoder(unittest.TestCase):
             'e': Bits(bin='111')
         }
 
-        tree = self.coder.create_huffman_tree(symbols_and_weights)
-        result = self.coder.create_huffman_table(tree)
+        tree = self.coder._create_huffman_tree(symbols_and_weights)
+        result = self.coder._create_huffman_table(tree)
         self.assertDictEqual(result, expected)
 
     def test_create_huffman_table_returns_correct_dictionary_by_code_lengths(self):
@@ -67,8 +67,8 @@ class TestHuffmanCoder(unittest.TestCase):
             't': 4,
             'n': 3
         }
-        tree = self.coder.create_huffman_tree(symbols_and_weights)
-        result = self.coder.create_huffman_table(tree)
+        tree = self.coder._create_huffman_tree(symbols_and_weights)
+        result = self.coder._create_huffman_table(tree)
         self.assertEqual(len(result['o']), 2)
         self.assertEqual(len(result['t']), 2)
         self.assertEqual(len(result['n']), 2)
@@ -92,7 +92,7 @@ fffffffffffffffffffffffffffffffffffffffffffff'
 0000000000000000000000000000'
                         )
 
-        result = self.coder.huffman_encode_data(data, table)
+        result = self.coder._huffman_encode_data(data, table)
         self.assertEqual(result, expected)
 
     def test_encode_huffman_tree_creates_correct_bitarray(self):
@@ -107,8 +107,8 @@ fffffffffffffffffffffffffffffffffffffffffffff'
         expected = BitArray(
             bin='01011001100010110001110110010000101100001101100010101100101')
 
-        tree = self.coder.create_huffman_tree(symbols_and_frequencies)
-        result = self.coder.encode_huffman_tree(tree)
+        tree = self.coder._create_huffman_tree(symbols_and_frequencies)
+        result = self.coder._encode_huffman_tree(tree)
         self.assertEqual(result, expected)
 
     def test_decode_huffman_tree_creates_correct_tree_that_creates_correct_table(self):
@@ -124,8 +124,8 @@ fffffffffffffffffffffffffffffffffffffffffffff'
             b'e': Bits(bin='111')
         }
 
-        tree = self.coder.decode_huffman_tree(encoded_tree)
-        result = self.coder.create_huffman_table(tree)
+        tree = self.coder._decode_huffman_tree(encoded_tree)
+        result = self.coder._create_huffman_table(tree)
         self.assertDictEqual(result, expected)
 
     def test_huffman_decode_returns_correct_string(self):
@@ -140,8 +140,8 @@ fffffffffffffffffffffffffffffffffffffffffffff'
         expected = b'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
 fffffffffffffffffffffffffffffffffffffffffffff'
 
-        tree = self.coder.decode_huffman_tree(encoded_tree)
-        result = self.coder.huffman_decode_data(encoded_data, tree)
+        tree = self.coder._decode_huffman_tree(encoded_tree)
+        result = self.coder._huffman_decode_data(encoded_data, tree)
         self.assertEqual(result, expected)
 
     def test_decode_returns_correct_string(self):

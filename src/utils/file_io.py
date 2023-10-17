@@ -2,9 +2,6 @@ class FileIO:
     """Class handling file reading and writing
     """
 
-    def __init__(self) -> None:
-        pass
-
     def read_binary_file(self, filename: str) -> bytes:
         """Method for reading binary files.
 

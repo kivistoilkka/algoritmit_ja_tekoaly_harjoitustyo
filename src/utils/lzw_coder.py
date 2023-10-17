@@ -10,10 +10,19 @@ BITS_IN_WORD = 16
 
 
 class LZWCoder:
-    def __init__(self) -> None:
-        pass
+    """Class handling Lempel-Ziv-Welch compression and decompression
+    """
 
     def encode(self, data: bytes) -> bytes:
+        """Method for encoding input bytes with LZW algorithm
+
+        Args:
+            data (bytes): Data to be encoded
+
+        Returns:
+            bytes: LZW encoded data
+        """
+
         dictionary = {i.to_bytes(1): i for i in range(DICTIONARY_SIZE)}
         output = BitArray()
         word = b''
@@ -40,6 +49,15 @@ class LZWCoder:
         return output.bytes
 
     def decode(self, encoded: bytes) -> bytes:
+        """Method for decoding LZW encoded data
+
+        Args:
+            encoded (bytes): Encoded data
+
+        Returns:
+            bytes: Decoded data
+        """
+
         dictionary = {i: i.to_bytes(1) for i in range(DICTIONARY_SIZE)}
         code = DICTIONARY_SIZE+1
         output = BytesIO()

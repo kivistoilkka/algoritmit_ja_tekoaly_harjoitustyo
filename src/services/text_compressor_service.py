@@ -15,7 +15,10 @@ class TextCompressorService:
         self.lzw_coder = lzw_coder
 
     def encode_file(self, original_file_name: str, encoded_file_name: str, compression_method: str):
-        """Encodes file with selected compression method to new file
+        """Encodes file with selected compression method to new file. LZW compressed
+        data is written as is. When Huffman coding is used, needed amount of padding
+        bits is calculated, then output data is written in the following format:
+        [amount of padding bits (int), 1 byte][data, n-1 bytes][last byte of data + padding bits]
 
         Args:
             original_file_name (str): Absolute path to the file to be encoded
