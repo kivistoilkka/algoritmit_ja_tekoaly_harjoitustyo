@@ -30,13 +30,15 @@ class CLI:
                 )
                 end_time = time.time()
                 elapsed_time = end_time-start_time
+                print('**********')
                 if encoding_successful:
                     print(
-                        f"\nFile {file_path} compressed to file {name_for_file}, elapsed time: {elapsed_time}")
+                        f"FILE\n\n{file_path}\n\nDECOMPRESSED TO FILE\n\n{name_for_file}\n\nELAPSED TIME: {elapsed_time:.2f} seconds")
                 else:
-                    print(f"\nFile {file_path} couldn't be compressed")
+                    print(f"\nFILE\n\n{file_path}\n\nCOULDN'T BE DECOMPRESSED")
+                print('\n**********')
             except (ValueError) as error:
-                print('Error:', error)
+                print('ERROR:', error)
 
     def handle_decompression(self):
         encoded_file = input('Enter path to compressed file: ')
@@ -62,13 +64,16 @@ class CLI:
                 )
                 end_time = time.time()
                 elapsed_time = end_time-start_time
+                print('**********')
                 if decoding_successful:
                     print(
-                        f"\nFile {encoded_file} decompressed to file {name_for_file}, elapsed time: {elapsed_time}")
+                        f"FILE\n\n{encoded_file}\n\nDECOMPRESSED TO FILE\n\n{name_for_file}\n\nELAPSED TIME: {elapsed_time:.2f} seconds")
                 else:
-                    print(f"\nFile {encoded_file} couldn't be decompressed")
+                    print(
+                        f"\nFILE\n\n{encoded_file}\n\nCOULDN'T BE DECOMPRESSED")
+                print('\n**********')
             except (ValueError) as error:
-                print('Error:', error)
+                print('ERROR:', error)
 
     def run(self):
         print()

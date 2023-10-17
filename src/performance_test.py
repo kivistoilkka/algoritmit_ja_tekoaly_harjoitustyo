@@ -24,7 +24,7 @@ def run_compression_test(service: TextCompressorService, original_file_path, com
         print(
             f"Compression ratio {(file_size_compressed/file_size_original)*100:.2f} %")
     else:
-        print(f"\nFile couldn't be compressed")
+        print("\nFile couldn't be compressed")
 
 
 def run_decompression_test(service: TextCompressorService, original_file_path, compressed_file_path, decompressed_file_path, compression_method):
@@ -43,7 +43,7 @@ def run_decompression_test(service: TextCompressorService, original_file_path, c
         print(
             f"File sizes equal: {file_size_decompressed == file_size_original}")
     else:
-        print(f"\nFile couldn't be decompressed")
+        print("\nFile couldn't be decompressed")
 
 
 def main():

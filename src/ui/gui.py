@@ -11,10 +11,10 @@ class GUI:
 
     def _select_from_file(self):
         filetypes = (
+            ('All files', '*'),
             ('Text files', '*.txt'),
             ('Huffman coded files', '*.hc'),
-            ('LZW compressed files', '*.lzw'),
-            ('All files', '*')
+            ('LZW compressed files', '*.lzw')
         )
         filename = filedialog.askopenfilename(
             title='Open a file',
@@ -24,10 +24,10 @@ class GUI:
 
     def _select_to_file(self):
         filetypes = (
+            ('All files', '*'),
             ('Text files', '*.txt'),
             ('Huffman coded files', '*.hc'),
-            ('LZW compressed files', '*.lzw'),
-            ('All files', '*')
+            ('LZW compressed files', '*.lzw')
         )
         filename = filedialog.asksaveasfilename(
             title='Save to file...',
@@ -59,7 +59,7 @@ class GUI:
                         if encoding_successful:
                             messagebox.showinfo(
                                 title='Compression result',
-                                message=f"FILE\n\n{from_value}\n\nCOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f}"
+                                message=f"FILE\n\n{from_value}\n\nCOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f} seconds"
                             )
                         else:
                             messagebox.showerror(
@@ -82,7 +82,7 @@ class GUI:
                         if encoding_successful:
                             messagebox.showinfo(
                                 title='Decompression result',
-                                message=f"FILE\n\n{from_value}\n\nDECOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f}"
+                                message=f"FILE\n\n{from_value}\n\nDECOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f} seconds"
                             )
                         else:
                             messagebox.showerror(
