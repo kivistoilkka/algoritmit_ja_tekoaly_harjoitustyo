@@ -59,7 +59,7 @@ class GUI:
                         if encoding_successful:
                             messagebox.showinfo(
                                 title='Compression result',
-                                message=f"FILE\n\n{from_value}\n\nCOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time}"
+                                message=f"FILE\n\n{from_value}\n\nCOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f}"
                             )
                         else:
                             messagebox.showerror(
@@ -82,7 +82,7 @@ class GUI:
                         if encoding_successful:
                             messagebox.showinfo(
                                 title='Decompression result',
-                                message=f"FILE\n\n{from_value}\n\nDECOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time}"
+                                message=f"FILE\n\n{from_value}\n\nDECOMPRESSED TO FILE\n\n{to_value}\n\nUSING: {method_value}\nELAPSED TIME: {elapsed_time:.2f}"
                             )
                         else:
                             messagebox.showerror(
