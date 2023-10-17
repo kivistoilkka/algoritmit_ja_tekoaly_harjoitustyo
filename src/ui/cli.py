@@ -30,7 +30,7 @@ class CLI:
                 )
                 end_time = time.time()
                 elapsed_time = end_time-start_time
-                print('**********')
+                print('\n**********')
                 if encoding_successful:
                     print(
                         f"FILE\n\n{file_path}\n\nDECOMPRESSED TO FILE\n\n{name_for_file}\n\nELAPSED TIME: {elapsed_time:.2f} seconds")
@@ -64,7 +64,7 @@ class CLI:
                 )
                 end_time = time.time()
                 elapsed_time = end_time-start_time
-                print('**********')
+                print('\n**********')
                 if decoding_successful:
                     print(
                         f"FILE\n\n{encoded_file}\n\nDECOMPRESSED TO FILE\n\n{name_for_file}\n\nELAPSED TIME: {elapsed_time:.2f} seconds")
