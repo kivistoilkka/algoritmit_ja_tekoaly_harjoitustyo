@@ -30,12 +30,14 @@ def main(args):
     else:
         print('Unknown ui parameter')
 
+
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser(
         prog='Text Compressor',
         description='Program for compressing text files with Huffman coding and LZW algorithms'
     )
-    arg_parser.add_argument('-u', '--ui', default='gui', help='User interface (gui/cli, defaults to gui)')
+    arg_parser.add_argument('-u', '--ui', default='gui',
+                            help='User interface (gui/cli, defaults to gui)')
 
     args = arg_parser.parse_args()
     main(args)

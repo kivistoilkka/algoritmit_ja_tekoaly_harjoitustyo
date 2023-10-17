@@ -36,7 +36,7 @@ class GUI:
         )
         self._to_file_var.set(filename)
 
-    def _handle_button_compress_click(self, method:str):
+    def _handle_button_compress_click(self, method: str):
         from_value = self._from_file_var.get()
         to_value = self._to_file_var.get()
         method_value = self._method_var.get()
@@ -105,9 +105,10 @@ class GUI:
         self._method_var.set('huffman coding')
         self._from_file_var = StringVar()
         self._to_file_var = StringVar()
-    
+
         lbl_from_file = ttk.Label(master=self._root, text='Process this file:')
-        ent_from_file = ttk.Entry(master=self._root, textvariable=self._from_file_var)
+        ent_from_file = ttk.Entry(
+            master=self._root, textvariable=self._from_file_var)
         btn_from_file = ttk.Button(
             master=self._root,
             text='Browse',
@@ -115,14 +116,16 @@ class GUI:
         )
 
         lbl_to_file = ttk.Label(master=self._root, text='Save result to:')
-        ent_to_file = ttk.Entry(master=self._root, textvariable=self._to_file_var)
+        ent_to_file = ttk.Entry(
+            master=self._root, textvariable=self._to_file_var)
         btn_to_file = ttk.Button(
             master=self._root,
             text='Browse',
             command=self._select_to_file
         )
 
-        lbl_compr_method = ttk.Label(master=self._root, text='Compression method')
+        lbl_compr_method = ttk.Label(
+            master=self._root, text='Compression method')
         rad_huffman = ttk.Radiobutton(
             master=self._root,
             text='Huffman coding',
@@ -148,13 +151,19 @@ class GUI:
             command=lambda: self._handle_button_compress_click('decompress')
         )
 
-        lbl_from_file.grid(row=0, column=0, columnspan=2, sticky=(constants.W, constants.E), padx=5, pady=5)
-        ent_from_file.grid(row=1, column=0, columnspan=2, sticky=(constants.W, constants.E), padx=5, pady=5)
-        btn_from_file.grid(row=1, column=2, sticky=(constants.W, constants.E), padx=5, pady=5)
+        lbl_from_file.grid(row=0, column=0, columnspan=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
+        ent_from_file.grid(row=1, column=0, columnspan=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
+        btn_from_file.grid(row=1, column=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
 
-        lbl_to_file.grid(row=2, column=0, columnspan=2, sticky=(constants.W, constants.E), padx=5, pady=5)
-        ent_to_file.grid(row=3, column=0, columnspan=2, sticky=(constants.W, constants.E), padx=5, pady=5)
-        btn_to_file.grid(row=3, column=2, sticky=(constants.W, constants.E), padx=5, pady=5)
+        lbl_to_file.grid(row=2, column=0, columnspan=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
+        ent_to_file.grid(row=3, column=0, columnspan=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
+        btn_to_file.grid(row=3, column=2, sticky=(
+            constants.W, constants.E), padx=5, pady=5)
 
         lbl_compr_method.grid(row=4, column=0, padx=5, pady=5)
         rad_huffman.grid(row=5, column=0, padx=5, pady=5)
@@ -162,6 +171,3 @@ class GUI:
 
         btn_compress.grid(row=6, column=0, padx=5, pady=5)
         btn_decompress.grid(row=6, column=2, padx=5, pady=5)
-
-
-

@@ -3,7 +3,6 @@ from pathlib import Path
 
 from bitstring import Bits
 
-from config import ENCODING
 from services.text_compressor_service import TextCompressorService
 from utils.file_io import FileIO
 from utils.huffman_coder import HuffmanCoder
@@ -64,8 +63,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/loremipsum445_Windows-1252.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration2_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/loremipsum445_Windows-1252.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration2_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)
@@ -83,8 +82,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/loremipsum445_3rows_Windows-1252.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration3_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/loremipsum445_3rows_Windows-1252.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration3_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)
@@ -141,8 +140,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/loremipsum445_Windows-1252.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration5_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/loremipsum445_Windows-1252.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration5_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)
@@ -160,8 +159,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/loremipsum445_3rows_Windows-1252.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration6_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/loremipsum445_3rows_Windows-1252.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration6_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)
@@ -179,8 +178,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration7_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration7_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)
@@ -198,8 +197,8 @@ class TestTextCompressorService(unittest.TestCase):
         )
         self.assertTrue(result_encode)
         self.assertTrue(result_decode)
-        with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', encoding=ENCODING) as original_file:
-            with open('./src/tests/write_test_integration8_decoded.txt', encoding=ENCODING) as written_file:
+        with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration8_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)

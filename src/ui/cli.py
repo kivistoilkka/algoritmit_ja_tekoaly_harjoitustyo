@@ -19,7 +19,7 @@ class CLI:
                 method = 'lzw'
             case _default:
                 method = 'unknown'
-        
+
         if method == 'unknown':
             print('Unknown selection')
         else:

@@ -3,8 +3,6 @@ from heapq import heappush, heappop, heapify
 
 from bitstring import Bits, BitArray, ConstBitStream
 
-from config import ENCODING
-
 
 class HuffmanTreeNode:
 
@@ -34,17 +32,16 @@ class HuffmanCoder:
     def __init__(self) -> None:
         pass
 
-    def encode(self, input_string: str) -> BitArray:
+    def encode(self, input_bytes: bytes) -> BitArray:
         """Method for encoding input bytes with Huffman coding
 
         Args:
-            input_string (str): Text to be encoded
+            input_bytes (bytes): Data to be encoded
 
         Returns:
             BitArray: BitArray of combined encoded Huffman tree and encoded data
         """
 
-        input_bytes = input_string.encode(encoding=ENCODING)
         symbols_and_frequencies = Counter(input_bytes)
         tree = self.create_huffman_tree(symbols_and_frequencies)
         table = self.create_huffman_table(tree)
@@ -60,7 +57,7 @@ class HuffmanCoder:
                                    encoding of data followed by encoded data.
 
         Returns:
-            str: Decoded text in bytes
+            bytes: Decoded data
         """
 
         encoded_stream = ConstBitStream(encoded_bytes)

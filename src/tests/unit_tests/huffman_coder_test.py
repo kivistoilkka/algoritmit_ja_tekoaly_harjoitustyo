@@ -2,7 +2,6 @@ import unittest
 
 from bitstring import Bits, BitArray, ConstBitStream
 
-from config import ENCODING
 from utils.huffman_coder import HuffmanCoder, HuffmanTreeNode
 
 
@@ -12,7 +11,7 @@ class TestHuffmanCoder(unittest.TestCase):
         self.maxDiff = None
 
     def test_encode_returns_bitarray(self):
-        result = self.coder.encode('Hello world')
+        result = self.coder.encode(b'Hello world')
         self.assertTrue(isinstance(result, BitArray))
 
     def test_create_huffman_tree_returns_HuffmanTreeNode(self):
@@ -77,15 +76,15 @@ class TestHuffmanCoder(unittest.TestCase):
         self.assertEqual(len(result['w']), 3)
 
     def test_huffman_encode_data_creates_correct_binary(self):
-        data = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
+        data = b'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
 fffffffffffffffffffffffffffffffffffffffffffff'
         table = {
-            'f': Bits(bin='0'),
-            'c': Bits(bin='100'),
-            'd': Bits(bin='101'),
-            'a': Bits(bin='1100'),
-            'b': Bits(bin='1101'),
-            'e': Bits(bin='111')
+            102: Bits(bin='0'),
+            99: Bits(bin='100'),
+            100: Bits(bin='101'),
+            97: Bits(bin='1100'),
+            98: Bits(bin='1101'),
+            101: Bits(bin='111')
         }
         expected = Bits(bin='\
 11001100110011001100110111011101110111011101110111011101100100100100100100100100100100100100101101\
@@ -158,7 +157,7 @@ fffffffffffffffffffffffffffffffffffffffffffff'
         self.assertEqual(result, expected)
 
     def test_encode_returns_correct_bitarray(self):
-        test_string = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
+        test_string = b'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
 fffffffffffffffffffffffffffffffffffffffffffff'
         expected_result = BitArray(bin='\
 01011001100010110001110110010000101100001101100010101100101110011001100110011001101110111011101110\
@@ -170,16 +169,16 @@ fffffffffffffffffffffffffffffffffffffffffffff'
         self.assertEqual(result, expected_result)
 
     def test_encode_can_encode_and_then_decode_string(self):
-        test_string = 'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
+        test_string = b'aaaaabbbbbbbbbccccccccccccdddddddddddddeeeeeeeeeeeeeeee\
 fffffffffffffffffffffffffffffffffffffffffffff'
         encoded = self.coder.encode(test_string)
 
         decoded_data = self.coder.decode(encoded)
-        self.assertEqual(decoded_data, test_string.encode(encoding=ENCODING))
+        self.assertEqual(decoded_data, test_string)
 
     def test_class_can_encode_and_then_decode_string2(self):
-        test_string = 'How to code this string with Huffman coding?'
+        test_string = b'How to code this string with Huffman coding?'
         encoded = self.coder.encode(test_string)
 
         decoded_data = self.coder.decode(encoded)
-        self.assertEqual(decoded_data, test_string.encode(encoding=ENCODING))
+        self.assertEqual(decoded_data, test_string)
