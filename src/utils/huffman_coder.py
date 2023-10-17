@@ -1,5 +1,6 @@
 from collections import Counter
 from heapq import heappush, heappop, heapify
+from io import BytesIO
 
 from bitstring import Bits, BitArray, ConstBitStream
 
@@ -137,7 +138,7 @@ class HuffmanCoder:
         return HuffmanTreeNode(0, '#', left_child, right_child)
 
     def huffman_decode_data(self, encoded_data: ConstBitStream, tree: HuffmanTreeNode) -> bytes:
-        decoded_data = b''
+        decoded_data = BytesIO()
         node = tree
         while True:
             current_bit = encoded_data.read(1)
@@ -146,8 +147,8 @@ class HuffmanCoder:
             elif node.right_child:
                 node = node.right_child
             if node.is_leaf():
-                decoded_data += node.symbol
+                decoded_data.write(node.symbol)
                 node = tree
             if encoded_data.pos == len(encoded_data):
                 break
-        return decoded_data
+        return decoded_data.getvalue()
