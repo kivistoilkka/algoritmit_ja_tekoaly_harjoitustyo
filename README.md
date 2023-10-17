@@ -2,7 +2,7 @@
 
 ![GHA workflow badge](https://github.com/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo/graph/badge.svg?token=YMC46OV14B)](https://codecov.io/gh/kivistoilkka/algoritmit_ja_tekoaly_harjoitustyo)
 
-Sovellus ASCII-tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja käyttäen. LZW-toiminnallisuus tukee myös UTF-8 merkistökoodausta.
+Sovellus tekstitiedostojen häviöttömään pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja käyttäen.
 
 ## Dokumentaatio
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
@@ -26,7 +26,7 @@ Sovellus ASCII-tekstitiedostojen pakkaamiseen Huffman- ja LZW-pakkausalgoritmeja
 ## Komentorivitoiminnot
 
 ### Ohjelman suorittaminen
-Ohjelman suoritus tapahtuu komennolla `poetry run invoke start`.
+Ohjelman suoritus tapahtuu komennolla `poetry run invoke start`, jolloin ohjelma suoritetaan graafisella käyttöliittymällä. Komennolla `poetry run invoke start-cli` ohjelma suoritetaan komentorivillä. Poetry shellin sisällä voi käyttää myös komentoja `python3 src/index.py --ui gui` ja `python3 src/index.py --ui cli`.
 
 ### Testaus
 Ohjelman kaikki testit ajetaan komennolla `poetry run invoke test`. Pelkät yksikkötestit ajetaan komennolla `poetry run invoke unit-test` ja pelkät integraatiotestit komennolla `poetry run invoke integration-test`.
