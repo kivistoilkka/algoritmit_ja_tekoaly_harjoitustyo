@@ -11,12 +11,14 @@ class CLI:
         file_path = input('Enter path to the file: ')
         name_for_file = input('Enter path and name for the compressed file: ')
         encoding_option = input(
-            'Select compression option (1 Huffman coding, 2 LZW): ')
+            'Select compression option (1 Huffman coding, 2 LZW, 3 both): ')
         match encoding_option:
             case '1':
                 method = 'huffman coding'
             case '2':
                 method = 'lzw'
+            case '3':
+                method = 'both'
             case _default:
                 method = 'unknown'
 
@@ -45,12 +47,14 @@ class CLI:
         name_for_file = input(
             'Enter path and name for the decompressed file: ')
         decoding_option = input(
-            'Select compression option (1 Huffman coding, 2 LZW): ')
+            'Select compression option (1 Huffman coding, 2 LZW, 3 both): ')
         match decoding_option:
             case '1':
                 method = 'huffman coding'
             case '2':
                 method = 'lzw'
+            case '3':
+                method = 'both'
             case _default:
                 method = 'unknown'
 

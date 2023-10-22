@@ -14,7 +14,8 @@ class GUI:
             ('All files', '*'),
             ('Text files', '*.txt'),
             ('Huffman coded files', '*.hc'),
-            ('LZW compressed files', '*.lzw')
+            ('LZW compressed files', '*.lzw'),
+            ('HC and LZW compressed files', '*.tczip')
         )
         filename = filedialog.askopenfilename(
             title='Open a file',
@@ -27,7 +28,8 @@ class GUI:
             ('All files', '*'),
             ('Text files', '*.txt'),
             ('Huffman coded files', '*.hc'),
-            ('LZW compressed files', '*.lzw')
+            ('LZW compressed files', '*.lzw'),
+            ('HC and LZW compressed files', '*.tczip')
         )
         filename = filedialog.asksaveasfilename(
             title='Save to file...',
@@ -139,6 +141,12 @@ class GUI:
             variable=self._method_var,
             value='lzw'
         )
+        rad_both = ttk.Radiobutton(
+            master=self._root,
+            text='Both',
+            variable=self._method_var,
+            value='both'
+        )
 
         btn_compress = ttk.Button(
             master=self._root,
@@ -168,6 +176,7 @@ class GUI:
         lbl_compr_method.grid(row=4, column=0, padx=5, pady=5)
         rad_huffman.grid(row=5, column=0, padx=5, pady=5)
         rad_lzw.grid(row=5, column=1, padx=5, pady=5)
+        rad_both.grid(row=5, column=2, padx=5, pady=5)
 
         btn_compress.grid(row=6, column=0, padx=5, pady=5)
         btn_decompress.grid(row=6, column=2, padx=5, pady=5)

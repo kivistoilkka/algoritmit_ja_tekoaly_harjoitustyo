@@ -20,7 +20,22 @@ class TestTextCompressorService(unittest.TestCase):
 
     def tearDown(self):
         test_text_files = [
-            './src/tests/write_test_integration1.txt', './src/tests/write_test_integration2_encoded.txt', './src/tests/write_test_integration2_decoded.txt', './src/tests/write_test_integration3_encoded.txt', './src/tests/write_test_integration3_decoded.txt', './src/tests/write_test_integration4.txt', './src/tests/write_test_integration5_encoded.txt', './src/tests/write_test_integration5_decoded.txt', './src/tests/write_test_integration6_encoded.txt', './src/tests/write_test_integration6_decoded.txt', './src/tests/write_test_integration7_encoded.txt', './src/tests/write_test_integration7_decoded.txt', './src/tests/write_test_integration8_encoded.txt', './src/tests/write_test_integration8_decoded.txt'
+            './src/tests/write_test_integration1.txt'
+            , './src/tests/write_test_integration2_encoded.txt'
+            , './src/tests/write_test_integration2_decoded.txt'
+            , './src/tests/write_test_integration3_encoded.txt'
+            , './src/tests/write_test_integration3_decoded.txt'
+            , './src/tests/write_test_integration4.txt'
+            , './src/tests/write_test_integration5_encoded.txt'
+            , './src/tests/write_test_integration5_decoded.txt'
+            , './src/tests/write_test_integration6_encoded.txt'
+            , './src/tests/write_test_integration6_decoded.txt'
+            , './src/tests/write_test_integration7_encoded.txt'
+            , './src/tests/write_test_integration7_decoded.txt'
+            , './src/tests/write_test_integration8_encoded.txt'
+            , './src/tests/write_test_integration8_decoded.txt'
+            , './src/tests/write_test_integration9_encoded.txt'
+            , './src/tests/write_test_integration9_decoded.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():
@@ -199,6 +214,25 @@ class TestTextCompressorService(unittest.TestCase):
         self.assertTrue(result_decode)
         with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', mode='rb') as original_file:
             with open('./src/tests/write_test_integration8_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_large_file_is_encoded_and_decoded_using_both_algorithms_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/pg84_frankenstein_UTF8.txt',
+            './src/tests/write_test_integration9_encoded.txt',
+            'both'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration9_encoded.txt',
+            './src/tests/write_test_integration9_decoded.txt',
+            'both'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration9_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)

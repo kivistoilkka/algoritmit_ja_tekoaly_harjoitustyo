@@ -45,6 +45,32 @@ def run_decompression_test(service: TextCompressorService, original_file_path, c
     else:
         print("\nFile couldn't be decompressed")
 
+def run_test_set(service: TextCompressorService, method: str):
+    method_for_file_path = method.replace(' ', '_')
+    print(f'\n## Testing {method} method')
+
+    print('\n# Compress Alice')
+    original_file_path = 'src/tests/text_files/pg11_alice_UTF8.txt'
+    compressed_file_path = f'src/tests/performance_test_files/alice_{method_for_file_path}_compressed'
+    run_compression_test(service, original_file_path,
+                        compressed_file_path, method)
+
+    print('\n# Decompress Alice')
+    decompressed_file_path = f'src/tests/performance_test_files/alice_{method_for_file_path}_decompressed'
+    run_decompression_test(service, original_file_path,
+                        compressed_file_path, decompressed_file_path, method)
+
+    print('\n# Compress Frankenstein')
+    original_file_path = 'src/tests/text_files/pg84_frankenstein_UTF8.txt'
+    compressed_file_path = f'src/tests/performance_test_files/frankenstein_{method_for_file_path}_compressed'
+    run_compression_test(service, original_file_path,
+                        compressed_file_path, method)
+
+    print('\n# Decompress Frankenstein')
+    decompressed_file_path = f'src/tests/performance_test_files/frankenstein_{method_for_file_path}_decompressed'
+    run_decompression_test(service, original_file_path,
+                        compressed_file_path, decompressed_file_path, method)
+
 
 def main():
     file_io = FileIO()
@@ -56,62 +82,27 @@ def main():
 
     print('## Removing old test files')
     test_text_files = [
-        'src/tests/performance_test_files/alice_huffman_compressed', 'src/tests/performance_test_files/alice_huffman_decompressed', 'src/tests/performance_test_files/alice_lzw_compressed', 'src/tests/performance_test_files/alice_lzw_decompressed', 'src/tests/performance_test_files/frankenstein_huffman_compressed', 'src/tests/performance_test_files/frankenstein_huffman_decompressed', 'src/tests/performance_test_files/frankenstein_lzw_compressed', 'src/tests/performance_test_files/frankenstein_lzw_decompressed'
-
+        'src/tests/performance_test_files/alice_huffman_coding_compressed'
+        , 'src/tests/performance_test_files/alice_huffman_coding_decompressed'
+        , 'src/tests/performance_test_files/alice_lzw_compressed'
+        , 'src/tests/performance_test_files/alice_lzw_decompressed'
+        , 'src/tests/performance_test_files/alice_both_compressed'
+        , 'src/tests/performance_test_files/alice_both_decompressed'
+        , 'src/tests/performance_test_files/frankenstein_huffman_coding_compressed'
+        , 'src/tests/performance_test_files/frankenstein_huffman_coding_decompressed'
+        , 'src/tests/performance_test_files/frankenstein_lzw_compressed'
+        , 'src/tests/performance_test_files/frankenstein_lzw_decompressed'
+        , 'src/tests/performance_test_files/frankenstein_both_compressed'
+        , 'src/tests/performance_test_files/frankenstein_both_decompressed'
     ]
     for file in test_text_files:
         if Path(file).exists():
             Path(file).unlink()
             print(f"File {file} removed")
 
-    print('\n## Testing Huffman coder')
-
-    print('\n# Compress Alice')
-    original_file_path = 'src/tests/text_files/pg11_alice_UTF8.txt'
-    compressed_file_path = 'src/tests/performance_test_files/alice_huffman_compressed'
-    run_compression_test(service, original_file_path,
-                         compressed_file_path, 'huffman coding')
-
-    print('\n# Decompress Alice')
-    decompressed_file_path = 'src/tests/performance_test_files/alice_huffman_decompressed'
-    run_decompression_test(service, original_file_path,
-                           compressed_file_path, decompressed_file_path, 'huffman coding')
-
-    print('\n# Compress Frankenstein')
-    original_file_path = 'src/tests/text_files/pg84_frankenstein_UTF8.txt'
-    compressed_file_path = 'src/tests/performance_test_files/frankenstein_huffman_compressed'
-    run_compression_test(service, original_file_path,
-                         compressed_file_path, 'huffman coding')
-
-    print('\n# Decompress Frankenstein')
-    decompressed_file_path = 'src/tests/performance_test_files/frankenstein_huffman_decompressed'
-    run_decompression_test(service, original_file_path,
-                           compressed_file_path, decompressed_file_path, 'huffman coding')
-
-    print('\n## Testing LZW')
-
-    print('\n# Compress Alice')
-    original_file_path = 'src/tests/text_files/pg11_alice_UTF8.txt'
-    compressed_file_path = 'src/tests/performance_test_files/alice_lzw_compressed'
-    run_compression_test(service, original_file_path,
-                         compressed_file_path, 'lzw')
-
-    print('\n# Decompress Alice')
-    decompressed_file_path = 'src/tests/performance_test_files/alice_lzw_decompressed'
-    run_decompression_test(service, original_file_path,
-                           compressed_file_path, decompressed_file_path, 'lzw')
-
-    print('\n# Compress Frankenstein')
-    original_file_path = 'src/tests/text_files/pg84_frankenstein_UTF8.txt'
-    compressed_file_path = 'src/tests/performance_test_files/frankenstein_lzw_compressed'
-    run_compression_test(service, original_file_path,
-                         compressed_file_path, 'lzw')
-
-    print('\n# Decompress Frankenstein')
-    decompressed_file_path = 'src/tests/performance_test_files/frankenstein_lzw_decompressed'
-    run_decompression_test(service, original_file_path,
-                           compressed_file_path, decompressed_file_path, 'lzw')
-
+    run_test_set(service, 'huffman coding')
+    run_test_set(service, 'lzw')
+    run_test_set(service, 'both')
     print()
 
 

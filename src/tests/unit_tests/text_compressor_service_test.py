@@ -18,13 +18,13 @@ class TestTextCompressorService(unittest.TestCase):
             self.io_mock, self.huffman_coder_mock, self.lzw_coder_mock)
 
     def test_encode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
-        self.io_mock.read_binary_file.return_value = b'''aaaaabbbbbbbbbcccccccccccc\
-dddddddddddddeeeeeeeeeeeeeeeefffffffffffffffffffffffffffffffffffffffffffff'''
+        self.io_mock.read_binary_file.return_value = b'''something'''
         with self.assertRaisesRegex(type(ValueError()), 'Compression method "imaginary" not available'):
             self.service.encode_file(
                 './filename', './filename_encoded', 'imaginary')
 
     def test_decode_file_will_raise_error_if_called_with_non_available_encoding_method(self):
+        self.io_mock.read_binary_file.return_value = b'''something'''
         with self.assertRaisesRegex(type(ValueError()), 'Compression method "imaginary" not available'):
             self.service.decode_file(
                 './filename', './filename_decoded', 'imaginary')
