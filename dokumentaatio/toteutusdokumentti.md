@@ -183,7 +183,7 @@ Huffmanin koodauksessa käytetään bittioperaatioihin bitstring-moduulia, jonka
 Työn toteutuksessa ei ole käytetty ChatGPT:tä tai muita vastaavia tekoälyjä.
 
 Käytetyt lähteet ja esimerkit:
-- Bittikäsittely: (https://realpython.com/python-bitwise-operators/)
+- Bittikäsittely: https://realpython.com/python-bitwise-operators/
 - Huffmanin koodaus:
     - Teoria: https://fi.wikipedia.org/wiki/Huffmanin_koodaus
     - Teoria: https://en.wikipedia.org/wiki/Huffman_coding
