@@ -36,6 +36,30 @@ class TestTextCompressorService(unittest.TestCase):
             , './src/tests/write_test_integration8_decoded.txt'
             , './src/tests/write_test_integration9_encoded.txt'
             , './src/tests/write_test_integration9_decoded.txt'
+            , './src/tests/write_test_integration10_encoded.txt'
+            , './src/tests/write_test_integration10_decoded.txt'
+            , './src/tests/write_test_integration11_encoded.txt'
+            , './src/tests/write_test_integration11_decoded.txt'
+            , './src/tests/write_test_integration12_encoded.txt'
+            , './src/tests/write_test_integration12_decoded.txt'
+            , './src/tests/write_test_integration13_encoded.txt'
+            , './src/tests/write_test_integration13_decoded.txt'
+            , './src/tests/write_test_integration14_encoded.txt'
+            , './src/tests/write_test_integration14_decoded.txt'
+            , './src/tests/write_test_integration15_encoded.txt'
+            , './src/tests/write_test_integration15_decoded.txt'
+            , './src/tests/write_test_integration16_encoded.txt'
+            , './src/tests/write_test_integration16_decoded.txt'
+            , './src/tests/write_test_integration17_encoded.txt'
+            , './src/tests/write_test_integration17_decoded.txt'
+            , './src/tests/write_test_integration18_encoded.txt'
+            , './src/tests/write_test_integration18_decoded.txt'
+            , './src/tests/write_test_integration19_encoded.txt'
+            , './src/tests/write_test_integration19_decoded.txt'
+            , './src/tests/write_test_integration20_encoded.txt'
+            , './src/tests/write_test_integration20_decoded.txt'
+            , './src/tests/write_test_integration21_encoded.txt'
+            , './src/tests/write_test_integration21_decoded.txt'
         ]
         for file in test_text_files:
             if Path(file).exists():
@@ -233,6 +257,234 @@ class TestTextCompressorService(unittest.TestCase):
         self.assertTrue(result_decode)
         with open('./src/tests/text_files/pg84_frankenstein_UTF8.txt', mode='rb') as original_file:
             with open('./src/tests/write_test_integration9_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_same_letter_text_file_is_encoded_and_decoded_using_huffman_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/aa.txt',
+            './src/tests/write_test_integration10_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration10_encoded.txt',
+            './src/tests/write_test_integration10_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/aa.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration10_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_same_letter_text_file_is_encoded_and_decoded_using_lzw_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/aa.txt',
+            './src/tests/write_test_integration11_encoded.txt',
+            'lzw'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration11_encoded.txt',
+            './src/tests/write_test_integration11_decoded.txt',
+            'lzw'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/aa.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration11_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_same_letter_file_is_encoded_and_decoded_using_both_algorithms_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/aa.txt',
+            './src/tests/write_test_integration12_encoded.txt',
+            'both'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration12_encoded.txt',
+            './src/tests/write_test_integration12_decoded.txt',
+            'both'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/aa.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration12_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_different_letter_text_file_is_encoded_and_decoded_using_huffman_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/ab.txt',
+            './src/tests/write_test_integration13_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration13_encoded.txt',
+            './src/tests/write_test_integration13_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/ab.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration13_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_different_letter_text_file_is_encoded_and_decoded_using_lzw_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/ab.txt',
+            './src/tests/write_test_integration14_encoded.txt',
+            'lzw'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration14_encoded.txt',
+            './src/tests/write_test_integration14_decoded.txt',
+            'lzw'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/ab.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration14_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_two_different_letter_file_is_encoded_and_decoded_using_both_algorithms_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/ab.txt',
+            './src/tests/write_test_integration15_encoded.txt',
+            'both'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration15_encoded.txt',
+            './src/tests/write_test_integration15_decoded.txt',
+            'both'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/ab.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration15_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_one_letter_text_file_is_encoded_and_decoded_using_huffman_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/a.txt',
+            './src/tests/write_test_integration16_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration16_encoded.txt',
+            './src/tests/write_test_integration16_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/a.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration16_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_one_letter_text_file_is_encoded_and_decoded_using_lzw_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/a.txt',
+            './src/tests/write_test_integration17_encoded.txt',
+            'lzw'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration17_encoded.txt',
+            './src/tests/write_test_integration17_decoded.txt',
+            'lzw'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/a.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration17_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_one_letter_file_is_encoded_and_decoded_using_both_algorithms_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/a.txt',
+            './src/tests/write_test_integration18_encoded.txt',
+            'both'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration18_encoded.txt',
+            './src/tests/write_test_integration18_decoded.txt',
+            'both'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/a.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration18_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_empty_text_file_is_encoded_and_decoded_using_huffman_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/empty_file.txt',
+            './src/tests/write_test_integration19_encoded.txt',
+            'huffman coding'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration19_encoded.txt',
+            './src/tests/write_test_integration19_decoded.txt',
+            'huffman coding'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/empty_file.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration19_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_empty_text_file_is_encoded_and_decoded_using_lzw_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/empty_file.txt',
+            './src/tests/write_test_integration20_encoded.txt',
+            'lzw'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration20_encoded.txt',
+            './src/tests/write_test_integration20_decoded.txt',
+            'lzw'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/empty_file.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration20_decoded.txt', mode='rb') as written_file:
+                original_text = original_file.read()
+                decoded_text = written_file.read()
+                self.assertEqual(decoded_text, original_text)
+
+    def test_empty_file_is_encoded_and_decoded_using_both_algorithms_and_then_saved_to_new_file(self):
+        result_encode = self.service.encode_file(
+            './src/tests/text_files/empty_file.txt',
+            './src/tests/write_test_integration21_encoded.txt',
+            'both'
+        )
+        result_decode = self.service.decode_file(
+            './src/tests/write_test_integration21_encoded.txt',
+            './src/tests/write_test_integration21_decoded.txt',
+            'both'
+        )
+        self.assertTrue(result_encode)
+        self.assertTrue(result_decode)
+        with open('./src/tests/text_files/empty_file.txt', mode='rb') as original_file:
+            with open('./src/tests/write_test_integration21_decoded.txt', mode='rb') as written_file:
                 original_text = original_file.read()
                 decoded_text = written_file.read()
                 self.assertEqual(decoded_text, original_text)

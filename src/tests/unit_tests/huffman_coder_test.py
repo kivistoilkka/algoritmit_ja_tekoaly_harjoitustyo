@@ -182,3 +182,40 @@ fffffffffffffffffffffffffffffffffffffffffffff'
 
         decoded_data = self.coder.decode(encoded)
         self.assertEqual(decoded_data, test_string)
+
+    def test_create_huffman_table_returns_correct_dictionary_when_data_consists_of_only_one_character(self):
+        symbols_and_weights = {
+            b'a': 1,
+        }
+        expected = {
+            b'a': Bits(bin='0'),
+        }
+
+        tree = self.coder._create_huffman_tree(symbols_and_weights)
+        result = self.coder._create_huffman_table(tree)
+        self.assertDictEqual(result, expected)
+
+    def test_encode_huffman_tree_creates_correct_bitarray_when_data_consists_of_only_one_character(self):
+        symbols_and_frequencies = {
+            97: 1,
+        }
+        expected = BitArray(
+            bin='101100001')
+
+        tree = self.coder._create_huffman_tree(symbols_and_frequencies)
+        result = self.coder._encode_huffman_tree(tree)
+        self.assertEqual(result, expected)
+
+    def test_encode_returns_correct_bitarray_when_data_is_empty(self):
+        test_string = b''
+        expected_result = BitArray(bin='')
+
+        result = self.coder.encode(test_string)
+        self.assertEqual(result, expected_result)
+
+    def test_decode_returns_correct_bitarray_when_encoded_data_is_empty(self):
+        test_string = b''
+        expected_result = BitArray(bin='')
+
+        result = self.coder.decode(test_string)
+        self.assertEqual(result, expected_result)

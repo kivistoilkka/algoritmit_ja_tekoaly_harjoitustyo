@@ -42,6 +42,8 @@ class HuffmanCoder:
             BitArray: BitArray of combined encoded Huffman tree and encoded data
         """
 
+        if input_bytes == b'':
+            return BitArray('')
         symbols_and_frequencies = Counter(input_bytes)
         tree = self._create_huffman_tree(symbols_and_frequencies)
         table = self._create_huffman_table(tree)
@@ -60,6 +62,8 @@ class HuffmanCoder:
             bytes: Decoded data
         """
 
+        if len(encoded_bytes) == 0:
+            return b''
         encoded_stream = ConstBitStream(encoded_bytes)
         tree = self._decode_huffman_tree(encoded_stream)
         return self._huffman_decode_data(encoded_stream, tree)
@@ -81,12 +85,13 @@ class HuffmanCoder:
                 right
             )
             heappush(nodes, new_node)
-
         return heappop(nodes)
 
     def _create_huffman_table(self, root_node: HuffmanTreeNode) -> dict[int, Bits]:
         huffman_table = {}
         self._add_node_to_table(root_node, huffman_table)
+        if len(huffman_table) == 1:
+            huffman_table[root_node.symbol] = Bits(bin='0')
         return huffman_table
 
     def _add_node_to_table(self, node: HuffmanTreeNode, table: dict, code: str = ''):
@@ -115,7 +120,8 @@ class HuffmanCoder:
             return
         if node.is_leaf():
             encoded_tree.append(bin(1))
-            return encoded_tree.append(node.symbol.to_bytes(1))
+            encoded_tree.append(node.symbol.to_bytes(1))
+            return encoded_tree
         encoded_tree.append(bin(0))
         self._add_node_to_encoded_tree(
             node.left_child, encoded_tree)

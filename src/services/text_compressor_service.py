@@ -32,7 +32,8 @@ class TextCompressorService:
         data is written as is. When Huffman coding is used, needed amount of padding
         bits is calculated, then output data is written in the following format:
         [amount of padding bits (int), 1 byte][data, n-1 bytes][last byte of data + padding bits, 1 byte].
-        Option 'both' first compresses data using LZW, then Huffman coding.
+        Option 'both' first compresses data using LZW, then Huffman coding. If input
+        file is empty, then also output file will be empty.
 
         Args:
             original_file_name (str): Absolute path to the file to be encoded
@@ -49,6 +50,8 @@ class TextCompressorService:
         original_data = self.file_io.read_binary_file(original_file_name)
         match compression_method:
             case 'huffman coding':
+                if original_data == b'':
+                    return self.file_io.write_binary_file(original_data, encoded_file_name)
                 encoded_data = self.huffman_coder.encode(original_data)
                 padded_data = self._add_padding_to_huffman_coded_data(encoded_data)
                 return self.file_io.write_binary_file(padded_data, encoded_file_name)
@@ -56,6 +59,8 @@ class TextCompressorService:
                 encoded_data = self.lzw_coder.encode(original_data)
                 return self.file_io.write_binary_file(encoded_data, encoded_file_name)
             case 'both':
+                if original_data == b'':
+                    return self.file_io.write_binary_file(original_data, encoded_file_name)
                 lzw_encoded_data = self.lzw_coder.encode(original_data)
                 both_encoded_data = self.huffman_coder.encode(lzw_encoded_data)
                 padded_data = self._add_padding_to_huffman_coded_data(both_encoded_data)
@@ -65,7 +70,8 @@ class TextCompressorService:
                                  compression_method + '" not available')
 
     def decode_file(self, encoded_file_name: str, decoded_file_name: str, compression_method: str):
-        """Decodes file with selected compression method to new file.
+        """Decodes file with selected compression method to new file. If input file
+        is empty, then also output file will be empty.
 
         Args:
             encoded_file_name (str): Absolute path to the encoded file
@@ -82,13 +88,19 @@ class TextCompressorService:
         data = self.file_io.read_binary_file(encoded_file_name)
         match compression_method:
             case 'huffman coding':
+                if data == b'':
+                    return self.file_io.write_binary_file(data, decoded_file_name)
                 nonpadded_data = self._remove_padding_from_huffman_coded_data(data)
                 decoded_data = self.huffman_coder.decode(nonpadded_data)
                 return self.file_io.write_binary_file(decoded_data, decoded_file_name)
             case 'lzw':
+                if data == b'':
+                    return self.file_io.write_binary_file(data, decoded_file_name)
                 decoded_data = self.lzw_coder.decode(data)
                 return self.file_io.write_binary_file(decoded_data, decoded_file_name)
             case 'both':
+                if data == b'':
+                    return self.file_io.write_binary_file(data, decoded_file_name)
                 nonpadded_data = self._remove_padding_from_huffman_coded_data(data)
                 huffman_decoded_data = self.huffman_coder.decode(nonpadded_data)
                 both_decoded_data = self.lzw_coder.decode(huffman_decoded_data)
