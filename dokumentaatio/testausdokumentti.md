@@ -26,3 +26,6 @@ Suorituskykytestit voi ajaa komennolla `poetry run invoke performance-test`.
 Suorituskykytestissä pakataan ja puretaan suuria tekstitiedostoja eri pakkausmenetelmillä. Pakkauksen yhteydessä lasketaan pakkaamiseen kulunut aika ja pakkausprosentti. Purkamisen yhteydessä lasketaan purkamiseen kulunut aika ja verrataan puretun tiedoston kokoa alkuperäiseen tiedostoon. Testissä käytetään seuraavia tekstitiedostoja:
 - [pg84_frankenstein_UTF8.txt](../src/tests/text_files/pg84_frankenstein_UTF8.txt), 449.0 kB, [Project Gutenberg](https://www.gutenberg.org/ebooks/84)
 - [pg11_alice_UTF8.txt](../src/tests/text_files/pg11_alice_UTF8.txt), 174.4 kB, [Project Gutenberg](https://www.gutenberg.org/ebooks/11)
+- [pg1342_pride_and_prejudice.txt](../src/tests/text_files/pg1342_pride_and_prejudice.txt), 772.4 kB, [Project Gutenberg](https://www.gutenberg.org/ebooks/1342)
+
+Suorituskykytestien tuloksista voi lukea lisää [toteutusdokumentista](toteutusdokumentti.md).

@@ -8,6 +8,7 @@ Sovellus tekstitiedostojen häviöttömään pakkaamiseen Huffman- ja LZW-pakkau
 - [Määrittelydokumentti](dokumentaatio/maarittelydokumentti.md)
 - [Testausdokumentti](dokumentaatio/testausdokumentti.md)
 - [Toteutusdokumentti](dokumentaatio/toteutusdokumentti.md)
+- [Käyttöohje](dokumentaatio/kayttoohje.md)
 
 ## Viikkoraportit
 - [Viikko 1](dokumentaatio/viikkoraportti1.md)
@@ -16,6 +17,7 @@ Sovellus tekstitiedostojen häviöttömään pakkaamiseen Huffman- ja LZW-pakkau
 - [Viikko 4](dokumentaatio/viikkoraportti4.md)
 - [Viikko 5](dokumentaatio/viikkoraportti5.md)
 - [Viikko 6](dokumentaatio/viikkoraportti6.md)
+- [Viikot 7 ja 8](dokumentaatio/viikkoraportti7ja8.md)
 
 ## Asennusohjeet
 
@@ -23,22 +25,4 @@ Sovellus tekstitiedostojen häviöttömään pakkaamiseen Huffman- ja LZW-pakkau
 2. Asenna riippuvuudet komennolla `poetry install`
 3. Käynnistä sovellus komennolla `poetry run invoke start`
 
-## Komentorivitoiminnot
-
-### Ohjelman suorittaminen
-Ohjelman suoritus tapahtuu komennolla `poetry run invoke start`, jolloin ohjelma suoritetaan graafisella käyttöliittymällä. Komennolla `poetry run invoke start-cli` ohjelma suoritetaan komentorivillä. Poetry shellin sisällä voi käyttää myös komentoja `python3 src/index.py --ui gui` ja `python3 src/index.py --ui cli`.
-
-### Testaus
-Ohjelman kaikki testit ajetaan komennolla `poetry run invoke test`. Pelkät yksikkötestit ajetaan komennolla `poetry run invoke unit-test` ja pelkät integraatiotestit komennolla `poetry run invoke integration-test`.
-
-### Testikattavuus
-Ohjelmasta voi luoda HTML-muotoisen testikattavuusraportin komennolla `poetry run invoke coverage-report`. Raportti luodaan _htmlcov_-hakemistoon.
-
-### Suorituskykytestaus
-Suorituskykytestit ajetaan komennolla `poetry run invoke performance-test`.
-
-### Pylint
-Tiedostossa .pylintrc määritellyt tarkistukset ajetaan komennolla `poetry run invoke lint`.
-
-### Autopep8
-Koodin voi automaattiformatoida noudattamaan PEP 8 -tyyliä komennolla `poetry run invoke format`.
+Ohjeet ohjelman käyttöön löytyvät [käyttöohjeista](dokumentaatio/kayttoohje.md).

@@ -70,6 +70,17 @@ def run_test_set(service: TextCompressorService, method: str):
     decompressed_file_path = f'src/tests/performance_test_files/frankenstein_{method_for_file_path}_decompressed'
     run_decompression_test(service, original_file_path,
                         compressed_file_path, decompressed_file_path, method)
+    
+    print('\n# Compress Pride and Prejudice')
+    original_file_path = 'src/tests/text_files/pg1342_pride_and_prejudice.txt'
+    compressed_file_path = f'src/tests/performance_test_files/pride_and_prejudice_{method_for_file_path}_compressed'
+    run_compression_test(service, original_file_path,
+                        compressed_file_path, method)
+
+    print('\n# Decompress Pride and Prejudice')
+    decompressed_file_path = f'src/tests/performance_test_files/pride_and_prejudice_{method_for_file_path}_decompressed'
+    run_decompression_test(service, original_file_path,
+                        compressed_file_path, decompressed_file_path, method)
 
 
 def main():
@@ -94,6 +105,12 @@ def main():
         , 'src/tests/performance_test_files/frankenstein_lzw_decompressed'
         , 'src/tests/performance_test_files/frankenstein_both_compressed'
         , 'src/tests/performance_test_files/frankenstein_both_decompressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_huffman_coding_compressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_huffman_coding_decompressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_lzw_compressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_lzw_decompressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_both_compressed'
+        , 'src/tests/performance_test_files/pride_and_prejudice_both_decompressed'
     ]
     for file in test_text_files:
         if Path(file).exists():

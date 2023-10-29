@@ -117,7 +117,7 @@ class HuffmanCoder:
 
     def _add_node_to_encoded_tree(self, node: HuffmanTreeNode, encoded_tree: BitArray) -> BitArray:
         if node is None:
-            return
+            return encoded_tree
         if node.is_leaf():
             encoded_tree.append(bin(1))
             encoded_tree.append(node.symbol.to_bytes(1))
